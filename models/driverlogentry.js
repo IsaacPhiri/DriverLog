@@ -1,4 +1,4 @@
- class DriverLogEntry {
+export class DriverLogEntry {
     constructor(date, trip, hoursOfService, vehicle, driver, remarks) {
       this.date = date;
       this.trip = trip;

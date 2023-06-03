@@ -1,4 +1,4 @@
-class Trip {
+export class Trip {
     constructor(startTime, endTime, purpose, origin, destination, mileage) {
       this.startTime = startTime;
       this.endTime = endTime;

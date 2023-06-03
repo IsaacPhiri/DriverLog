@@ -1,4 +1,4 @@
-class Vehicle {
+export class Vehicle {
     constructor(make, model, licensePlate, odometer) {
       this.make = make;
       this.model = model;

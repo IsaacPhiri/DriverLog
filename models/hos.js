@@ -1,4 +1,4 @@
-class HoursOfService {
+export class HoursOfService {
     constructor(hours) {
       this.hours = hours;
     }
