@@ -6,11 +6,7 @@ export class DriverLogEntry {
       this.vehicle = vehicle;
       this.driver = driver;
       this.remarks = remarks;
-      this.signature = null;
-    }
-  
-    addSignature(signature) {
-      this.signature = signature;
+      this.signature = this.driver.name;
     }
 
     displayLog() {
@@ -24,7 +20,7 @@ export class DriverLogEntry {
       console.log(`Mileage: ${this.trip.mileage}`);
       console.log(`Hours of Service: ${this.hoursOfService.hours}`);
       console.log(`Vehicle Information: Make: ${this.vehicle.make}, Model: ${this.vehicle.model}, License Plate: ${this.vehicle.licensePlate}, Odometer: ${this.vehicle.odometer}`);
-      console.log(`Driver Information: Name: ${this.driver.name}, License Number: ${this.driver.licenseNumber}`);
+      console.log(`Driver Information: Name: ${this.driver.name}, License Number: ${this.driver.licenseNumber}, ${this.driver.nrc}`);
       console.log(`Remarks: ${this.remarks}`);
       console.log(`Signature: ${this.signature}`);
   }  
