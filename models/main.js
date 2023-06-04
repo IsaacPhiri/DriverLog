@@ -10,6 +10,5 @@ const vehicle = new Vehicle('Toyota', 'Camry', 'ABC123', '10,000 miles');
 const driver = new Driver('John Doe', 'ABC123456'); //Done
 const logEntry = new DriverLogEntry('2023-05-31', trip, hoursOfService, vehicle, driver, 'Meeting went well');
 
-
 logEntry.addSignature('John Doe');
 logEntry.displayLog();
