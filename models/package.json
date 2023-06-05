@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/IsaacPhiri/DriverLog/issues"
   },
-  "homepage": "https://github.com/IsaacPhiri/DriverLog#readme"
+  "homepage": "https://github.com/IsaacPhiri/DriverLog#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
