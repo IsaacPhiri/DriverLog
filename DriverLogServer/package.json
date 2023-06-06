@@ -1,0 +1,30 @@
+{
+  "name": "driverlogserver",
+  "version": "1.0.0",
+  "description": "My driver log app backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacPhiri/DriverLog.git"
+  },
+  "keywords": [
+    "Driver",
+    "Log"
+  ],
+  "author": "Isaac Phiri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IsaacPhiri/DriverLog/issues"
+  },
+  "homepage": "https://github.com/IsaacPhiri/DriverLog#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.2",
+    "validation": "^0.0.1"
+  }
+}
