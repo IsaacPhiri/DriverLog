@@ -10,12 +10,10 @@ const CreateDriver = (props) => {
   const [driver, setDriver] = useState({
     driverName: '',
     driverLicenseNumber: '',
-    logEntries: {
-	      purpose: '',
-	      origin: '',
-	      destination: '',
-	      mileage: '',
-    }
+    purpose: '',
+    origin: '',
+    destination: '',
+    mileage: '',
   });
 
   const onChange = (e) => {
@@ -29,14 +27,12 @@ const CreateDriver = (props) => {
       .post('http://localhost:8082/api/drivers', driver)
       .then((res) => {
         setDriver({
-	    driverName: '',
-	    driverLicenseNumber: '',
-	    logEntries: {
-		      purpose: '',
-		      origin: '',
-		      destination: '',
-		      mileage: '',
-	  }
+          driverName: '',
+          driverLicenseNumber: '',
+          purpose: '',
+          origin: '',
+          destination: '',
+          mileage: '',
 	});
 
         // Push to /
