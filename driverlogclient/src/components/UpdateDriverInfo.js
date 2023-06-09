@@ -7,12 +7,10 @@ function UpdateDriverInfo(props) {
   const [driver, setDriver] = useState({
 	  driverName: '',
 	  driverLicenseNumber: '',
-	  logEntries: {
-		    date: '',
-		    startTime: '',
-		    purpose: '',
-		    origin: '',
-	  }
+	  purpose: '',
+    origin: '',
+    destination: '',
+    mileage: '',
   });
 
   const { id } = useParams();
@@ -25,12 +23,10 @@ function UpdateDriverInfo(props) {
         setDriver({
           driverName: res.data.driverName,
           driverLicenseNumber: res.data.driverLicenseNumber,
-	  logEntries: {
-		    date: res.data.logEntries.date,
-		    startTime: res.data.logEntries.startTime,
-		    purpose: res.data.logEntries.purpose,
-		    origin: res.data.logEntries.origin,
-	  }
+          purpose: res.data.purpose,
+          origin: res.data.origin,
+          destination: res.data.destination,
+          mileage: res.data.mileage,
         });
       })
       .catch((err) => {
@@ -48,12 +44,10 @@ function UpdateDriverInfo(props) {
     const data = {
 	    driverName: driver.driverName,
 	    driverLicenseNumber: driver.driverLicenseNumber,
-	    logEntries: {
-		      date: driver.logEntries.date,
-		      startTime: driver.logEntries.startTime,
-		      purpose: driver.logEntries.purpose,
-		      origin: driver.logEntries.origin,
-	    }
+	    purpose: driver.purpose,
+      origin: driver.origin,
+      destination: driver.destination,
+      mileage: driver.mileage,
     };
 
     axios
@@ -111,52 +105,52 @@ function UpdateDriverInfo(props) {
             <br />
 
             <div className='form-group'>
-              <label htmlFor='logEntries.date'>Author</label>
+              <label htmlFor='purpose'>purpose</label>
               <input
                 type='text'
-                placeholder='Date'
-                name='date'
-                className='form-control'
-                value={driver.logEntries.date}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='startTime'>Start Time</label>
-              <textarea
-                type='text'
-                placeholder='Sart Time'
-                name='startTime'
-                className='form-control'
-                value={driver.logEntries.startTime}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='endTime'>End Time</label>
-              <input
-                type='text'
-                placeholder='End Time'
-                name='endTime'
-                className='form-control'
-                value={driver.logEntries.endTime}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='purpose'>Purpose</label>
-              <input
-                type='text'
-                placeholder='Purpose of the trip'
+                placeholder='Purpose'
                 name='purpose'
                 className='form-control'
-                value={driver.logEntries.purpose}
+                value={driver.purpose}
+                onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className='form-group'>
+              <label htmlFor='origin'>Origin</label>
+              <textarea
+                type='text'
+                placeholder='Origin'
+                name='origin'
+                className='form-control'
+                value={driver.origin}
+                onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className='form-group'>
+              <label htmlFor='destination'>Destination</label>
+              <input
+                type='text'
+                placeholder='Destination'
+                name='destination'
+                className='form-control'
+                value={driver.destination}
+                onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className='form-group'>
+              <label htmlFor='mileage'>Mileage</label>
+              <input
+                type='text'
+                placeholder='Mileage'
+                name='mileage'
+                className='form-control'
+                value={driver.mileage}
                 onChange={onChange}
               />
             </div>
@@ -166,7 +160,7 @@ function UpdateDriverInfo(props) {
               type='submit'
               className='btn btn-outline-info btn-lg btn-block'
             >
-              Update Book
+              Update Driver
             </button>
           </form>
         </div>
