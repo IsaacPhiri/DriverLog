@@ -17,8 +17,8 @@ const DriverCard = (props) => {
           <Link to={`/show-driver/${driver._id}`}>{driver.driverLicenseNumber}</Link>
         </h2>
         <h3>{driver.driverName}</h3>
-        <p>{driver.logEntries.vehicle.make}</p>
-	<p>{driver.logEntries.vehicle.licensePlate}</p>
+        <p>{driver.purpose}</p>
+	<p>{driver.destination}</p>
       </div>
     </div>
   );
