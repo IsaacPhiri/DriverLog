@@ -27,7 +27,7 @@ function ShowDriverList() {
     <div className='ShowDriverList'>
       <div className='container'>
         <div className='row'>
-          <div className='col-md-12'>
+          <div className='col-md-1'>
             <br />
             <h2 className='display-4 text-center'>Drivers List</h2>
           </div>
