@@ -11,19 +11,19 @@ const DriverSchema = new mongoose.Schema({
 	},
 	purpose: {
 		type: String,
-		required: false
+		required: true
 	},
 	origin: {
 		type: String,
-		required: false
+		required: true
 	},
 	destination: {
 		type: String,
-		required: false
+		required: true
 	},
 	mileage: {
 		type: String,
-		required: false
+		required: true
 	}
 // Additional log entries...
 });
