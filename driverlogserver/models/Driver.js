@@ -25,49 +25,49 @@ const DriverSchema = new mongoose.Schema({
 			},
 			purpose: {
 				type: String,
-				required: true
+				required: false
 			},
 			origin: {
 				type: String,
-				required: true
+				required: false
 			},
 			destination: {
 				type: String,
-				required: true
+				required: false
 			},
 			mileage: {
 				type: String,
-				required: true
+				required: false
 			},
 			hoursOfService: {
 				type: String,
-				required: true
+				required: false
 			},
 			vehicle: {
 				make: {
 					type: String,
-					required: true
+					required: false
 				},
 				model: {
 					type: String,
-					required: true
+					required: false
 				},
 				licensePlate: {
 					type: String,
-					required: true
+					required: false
 				},
 				odometer: {
 					type: String,
-					required: true
+					required: false
 				}
 			},
 			remarks: {
 				type: String,
-				required: true
+				required: false
 			},
 			signature: {
 				type: String,
-				required: true
+				required: false
 			}
 		},
 // Additional log entries...
