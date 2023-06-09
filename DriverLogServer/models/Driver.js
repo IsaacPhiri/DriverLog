@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const DriverSchema = new mongoose.schema({
+const DriverSchema = new mongoose.Schema({
 	driverName: {
-		type: string,
+		type: String,
 		required: true
 	},
 	driverLicenseNumber: {
@@ -13,15 +13,15 @@ const DriverSchema = new mongoose.schema({
 		{
 			date: {
 				type: String,
-				default: Date.now
+				default: Date.nom
 			},
 			startTime: {
 				type: String,
-				default: Date.now
+				default: Date.nom
 			},
 			endTime: {
 				type: String,
-				default: Date.now
+				default: Date.nom
 			},
 			purpose: {
 				type: String,
@@ -36,7 +36,7 @@ const DriverSchema = new mongoose.schema({
 				required: true
 			},
 			mileage: {
-				type: String
+				type: String,
 				required: true
 			},
 			hoursOfService: {

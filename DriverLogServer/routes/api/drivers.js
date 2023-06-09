@@ -4,14 +4,14 @@ const express = require('express');
 const router = express.Router();
 
 // Load Book model
-const Book = require('../../models/Driver');
+const Driver = require('../../models/Driver');
 
 // @route GET api/drivers/test
 // @description tests books route
 // @accesc Public
 
 router.get('/test', (req, res) =>
-	res.send('book route testing!')
+	res.send('driver route testing!')
 );
 
 // @route GET api/drivers
@@ -56,7 +56,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
 	Driver.findByIdAndRemove(req.params.id, req.body)
 	.then(driver => res.json({ msg: 'Driver entry deleted successfully' }))
-	.catch(err => res.status(404).json({ error: 'No such book in Db' }));
+	.catch(err => res.status(404).json({ error: 'No such Driver in Db' }));
 });
 
 module.exports = router;

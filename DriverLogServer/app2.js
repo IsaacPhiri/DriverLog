@@ -19,7 +19,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) =>
-	res.send('Hello world')
+	res.send('<h1>Welcome to the DriverLog Wep App</h1>')
 );
 
 // use Routes
