@@ -43,26 +43,26 @@ function ShowDriverDetails(props) {
           <tr>
             <th scope='row'>2</th>
             <td>LICENSE</td>
-            <td>{driver.driverLicenseNumberr}</td>
+            <td>{driver.driverLicenseNumber}</td>
           </tr>
           <tr>
             <th scope='row'>3</th>
-            <td>DATE</td>
+            <td>Purpose</td>
             <td>{driver.purpose}</td>
           </tr>
           <tr>
             <th scope='row'>4</th>
-            <td>Start Time</td>
+            <td>Origin</td>
             <td>{driver.origin}</td>
           </tr>
           <tr>
             <th scope='row'>5</th>
-            <td>End Time</td>
+            <td>Destination</td>
             <td>{driver.destination}</td>
           </tr>
           <tr>
             <th scope='row'>6</th>
-            <td>Purpose</td>
+            <td>Mileage</td>
             <td>{driver.mileage}</td>
           </tr>
         </tbody>
