@@ -47,23 +47,8 @@ function ShowDriverDetails(props) {
           </tr>
           <tr>
             <th scope='row'>3</th>
-            <td>Purpose</td>
-            <td>{driver.purpose}</td>
-          </tr>
-          <tr>
-            <th scope='row'>4</th>
-            <td>Origin</td>
-            <td>{driver.origin}</td>
-          </tr>
-          <tr>
-            <th scope='row'>5</th>
-            <td>Destination</td>
-            <td>{driver.destination}</td>
-          </tr>
-          <tr>
-            <th scope='row'>6</th>
-            <td>Mileage</td>
-            <td>{driver.mileage}</td>
+            <td>National ID</td>
+            <td>{driver.national_ID}</td>
           </tr>
         </tbody>
       </table>
@@ -106,6 +91,15 @@ function ShowDriverDetails(props) {
               Edit Driver
             </Link>
           </div>
+	<div className='col-md-6 m-auto'>
+	              <Link
+	                to={`/enter-log/${driver._id}`}
+	                className='btn btn-outline-info btn-lg btn-block'
+	              >
+	                Enter Log
+	              </Link>
+	            </div>
+
         </div>
       </div>
     </div>

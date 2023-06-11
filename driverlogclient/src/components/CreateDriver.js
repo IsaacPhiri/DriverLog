@@ -10,10 +10,7 @@ const CreateDriver = (props) => {
   const [driver, setDriver] = useState({
     driverName: '',
     driverLicenseNumber: '',
-    purpose: '',
-    origin: '',
-    destination: '',
-    mileage: '',
+    national_ID: '',
   });
 
   const onChange = (e) => {
@@ -29,10 +26,7 @@ const CreateDriver = (props) => {
         setDriver({
           driverName: '',
           driverLicenseNumber: '',
-          purpose: '',
-          origin: '',
-          destination: '',
-          mileage: '',
+          national_ID: '',
 	});
 
         // Push to /
@@ -84,42 +78,10 @@ const CreateDriver = (props) => {
               <div className='form-group'>
                 <input
                   type='text'
-                  placeholder='Purpose'
-                  name='purpose'
+                  placeholder='National ID'
+                  name='national_ID'
                   className='form-control'
-                  value={driver.purpose}
-                  onChange={onChange}
-                />
-              </div>
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Origin'
-                  name='origin'
-                  className='form-control'
-                  value={driver.origin}
-                  onChange={onChange}
-                />
-              </div>
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Destination'
-                  name='destination'
-                  className='form-control'
-                  value={driver.destination}
-                  onChange={onChange}
-                />
-              </div>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Mileage'
-                  name='mileage'
-                  className='form-control'
-                  value={driver.mileage}
+                  value={driver.national_ID}
                   onChange={onChange}
                 />
               </div>
