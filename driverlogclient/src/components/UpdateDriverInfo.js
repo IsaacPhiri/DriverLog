@@ -38,7 +38,7 @@ function UpdateDriverInfo(props) {
     const data = {
 	    driverName: driver.driverName,
 	    driverLicenseNumber: driver.driverLicenseNumber,
-	    national_ID: driver.national_Id,
+	    national_ID: driver.national_ID,
     };
 
     axios
@@ -102,7 +102,7 @@ function UpdateDriverInfo(props) {
                 placeholder='National ID'
                 name='national_Id'
                 className='form-control'
-                value={driver.national_Id}
+                value={driver.national_ID}
                 onChange={onChange}
               />
             </div>
