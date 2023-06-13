@@ -1,31 +1,59 @@
 const mongoose = require('mongoose');
 
 const DriverSchema = new mongoose.Schema({
-	driverName: {
-		type: String,
+	  driverName: {
+		      type: String,
+		      required: true
+		    },
+	  driverLicenseNumber: {
+		      type: String,
+		      required: true
+		    },
+	  national_ID: {
+		      type: String,
+		      required: true
+		    },
+	date: {
+		type: Date,
+		default: Date.now,
 		required: true
 	},
-	driverLicenseNumber: {
+	startTime: {
 		type: String,
-		required: true
+		required: false
+	},
+	endTime: {
+	        type: String,
+	        required: false
 	},
 	purpose: {
-		type: String,
-		required: true
+	        type: String,
+	        required: false
 	},
 	origin: {
-		type: String,
-		required: true
+	        type: String,
+	        required: false
 	},
 	destination: {
-		type: String,
-		required: true
+	        type: String,
+	        required: false
 	},
 	mileage: {
-		type: String,
-		required: true
+	        type: String,
+	        required: false
+	},
+	hoursOfService: {
+	        type: String,
+	        required: false
+	},
+	remarks: {
+	        type: String,
+	        required: false
+	},
+	signature: {
+	        type: String,
+		required: false
 	}
-// Additional log entries...
 });
 
-module.exports = Driver = mongoose.model('driver', DriverSchema)
+module.exports = Driver = mongoose.model('driver', DriverSchema);
