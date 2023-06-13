@@ -56,28 +56,30 @@ function LogEntry(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const data = {
-	    date: driver.logEntries.date,
-	    startTime: driver.logEntries.startTime,
-	    endTime: driver.logEntries.endTime,
-	    purpose: driver.logEntries.purpose,
-	    origin: driver.logEntries.origin,
-	    destination: driver.logEntries.destination,
-	    mileage: driver.logEntries.mileage,
-	    hoursOfService: driver.logEntries.hoursOfService,
-	    remarks: driver.logEntries.remarks,
-	    signature: driver.logEntries.signature,
+	/*data*/
+    const newData = {
+	    date: driver.date,
+	    startTime: driver.startTime,
+	    endTime: driver.endTime,
+	    purpose: driver.purpose,
+	    origin: driver.origin,
+	    destination: driver.destination,
+	    mileage: driver.mileage,
+	    hoursOfService: driver.hoursOfService,
+	    remarks: driver.remarks,
+	    signature: driver.signature,
 	   /* make: vehicle.make,
 	    model: vehicle.model,
 	    licensePlate: vehicle.licensePlate,
 	    odometer: vehicle.odometer,*/
     };
+	/*No code*/
+    const updatedDriver = {...driver, newData};
 
     axios
-      .put(`http://localhost:8082/api/drivers/${id}`, data)
+      .put(`http://localhost:8082/api/drivers/${id}`, updatedDriver) /*data*/ /*/${id}*/
       .then((res) => {
-        navigate(`/show-driver/${id}`);
+        navigate(`/show-driver/${id}`); /*/show-driver/${id}*/
       })
       .catch((err) => {
         console.log('Error in LogEntry!');
@@ -109,7 +111,7 @@ function LogEntry(props) {
                 placeholder='Date'
                 name='date'
                 className='form-control'
-                value={driver.logEntries.date}
+                value={driver.date}
                 onChange={onChange}
               />
             </div>
@@ -122,7 +124,7 @@ function LogEntry(props) {
                 placeholder='Start Time'
                 name='startTime'
                 className='form-control'
-                value={driver.logEntries.startTime}
+                value={driver.startTime}
                 onChange={onChange}
               />
             </div>
@@ -135,7 +137,7 @@ function LogEntry(props) {
                 placeholder='End Time'
                 name='endTime'
                 className='form-control'
-                value={driver.logEntries.endTime}
+                value={driver.endTime}
                 onChange={onChange}
               />
             </div>
@@ -147,7 +149,7 @@ function LogEntry(props) {
 	                  placeholder='Purpose'
 	                  name='purpose'
 	                  className='form-control'
-	                  value={driver.logEntries.purpose}
+	                  value={driver.purpose}
 	                  onChange={onChange}
 	                />
 	              </div>
@@ -159,7 +161,7 @@ function LogEntry(props) {
 	                  placeholder='Origin'
 	                  name='origin'
 	                  className='form-control'
-	                  value={driver.logEntries.origin}
+	                  value={driver.origin}
 	                  onChange={onChange}
 	                />
 	              </div>
@@ -171,7 +173,7 @@ function LogEntry(props) {
 	                  placeholder='Destination'
 	                  name='destination'
 	                  className='form-control'
-	                  value={driver.logEntries.destination}
+	                  value={driver.destination}
 	                  onChange={onChange}
 	                />
 	              </div>
@@ -183,7 +185,7 @@ function LogEntry(props) {
 	                  placeholder='Mileage'
 	                  name='mileage'
 	                  className='form-control'
-	                  value={driver.logEntries.mileage}
+	                  value={driver.mileage}
 	                  onChange={onChange}
 	                />
 	              </div>
@@ -195,7 +197,7 @@ function LogEntry(props) {
 	                  placeholder='Hours Of Service'
 	                  name='hoursOfService'
 	                  className='form-control'
-	                  value={driver.logEntries.hoursOfService}
+	                  value={driver.hoursOfService}
 	                  onChange={onChange}
 	                />
 	              </div>
@@ -207,7 +209,7 @@ function LogEntry(props) {
 	                  placeholder='Remarks'
 	                  name='remarks'
 	                  className='form-control'
-	                  value={driver.logEntries.remarks}
+	                  value={driver.remarks}
 	                  onChange={onChange}
 	                />
 	              </div>
@@ -219,7 +221,7 @@ function LogEntry(props) {
 	                  placeholder='Signature'
 	                  name='signature'
 	                  className='form-control'
-	                  value={driver.logEntries.signature}
+	                  value={driver.signature}
 	                  onChange={onChange}
 	                />
 	              </div>
