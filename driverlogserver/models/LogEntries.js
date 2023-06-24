@@ -45,7 +45,7 @@ const LogEntrySchema = new mongoose.Schema({
 	signature: {
 	        type: String,
 		required: false
-	}
+	},
 });
 
 module.exports = LogEntries = mongoose.model('logEntries', LogEntrySchema);

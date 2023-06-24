@@ -5,7 +5,7 @@ import CreateDriver from './components/CreateDriver';
 import ShowDriverList from './components/ShowDriverList';
 import ShowDriverDetails from './components/ShowDriverDetails';
 import UpdateDriverInfo from './components/UpdateDriverInfo';
-import LogEntry from './components/LogEntry';
+import CreateLogEntry from './components/CreateLogEntry';
 
 const App = () => {
 	return (
@@ -16,7 +16,7 @@ const App = () => {
 			<Route path='/create-driver' element={<CreateDriver />}/>
 			<Route path='/edit-driver/:id' element={<UpdateDriverInfo />}/>
 			<Route path='/show-driver/:id' element={<ShowDriverDetails />}/>
-			<Route path='/enter-log/:id' element={<LogEntry />}/>
+			<Route path='/logs' element={<CreateLogEntry />}/>
 		</Routes>
 		</div>
 		</Router>

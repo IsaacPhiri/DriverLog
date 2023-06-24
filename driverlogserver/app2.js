@@ -6,6 +6,7 @@ const cors = require('cors');
 
 // routes
 const drivers = require('./routes/api/drivers');
+const logentries = require('./routes/api/logEntries');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) =>
 
 // use Routes
 app.use('/api/drivers', drivers);
+app.use('/api/logEntries', logentries);
 
 const port = process.env.PORT || 8082;
 
