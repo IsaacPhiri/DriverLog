@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
-
-const CreateDriver = (props) => {
-  // Define the state with useState hook
-  const navigate = useNavigate();
+const CreateDriver = () => {
+  const history = useHistory();
   const [driver, setDriver] = useState({
     driverName: '',
     driverLicenseNumber: '',
     national_ID: '',
   });
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setDriver({ ...driver, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
@@ -27,15 +24,15 @@ const CreateDriver = (props) => {
           driverName: '',
           driverLicenseNumber: '',
           national_ID: '',
-	});
+        });
 
-        // Push to /
-        navigate('/');
+        history.push('/');
       })
       .catch((err) => {
-        console.log('Error in CreateDriver!');
+        console.log('Error in CreateDriver:', err);
       });
   };
+
 
   return (
     <div className='CreateDriver'>
