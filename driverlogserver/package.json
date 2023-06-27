@@ -2,11 +2,11 @@
   "name": "driverlogserver",
   "version": "1.0.0",
   "description": "My driver log app backend",
-  "main": "app2.js",
+  "main": "app.js",
   "scripts": {
-    "test": "node app2.js",
-    "app": "nodemon app2.js",
-    "start": "node app2.js"
+    "test": "node app.js",
+    "app": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
