@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const CreateDriver = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [driver, setDriver] = useState({
     driverName: '',
     driverLicenseNumber: '',
     national_ID: '',
   });
 
-  const handleChange = (e) => {
+  const onChange = (e) => {
     setDriver({ ...driver, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     axios
@@ -26,7 +26,7 @@ const CreateDriver = () => {
           national_ID: '',
         });
 
-        history.push('/');
+        navigate('/');
       })
       .catch((err) => {
         console.log('Error in CreateDriver:', err);
@@ -69,7 +69,7 @@ const CreateDriver = () => {
                   className='form-control'
                   value={driver.driverLicenseNumber}
                   onChange={onChange}
-                />
+	        />
               </div>
 
               <div className='form-group'>

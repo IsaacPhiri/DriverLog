@@ -1,55 +1,30 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { useNavigate } from 'react-router-dom';
-
-const CreateLogEntry = (props) => {
-  // Define the state with useState hook
+const CreateLogEntry = () => {
   const navigate = useNavigate();
-  const [log, setLog] = useState({
-	  driverId: '',
-	  date: '',
-	  startTime: '',
-	  endTime: '',
-	  purpose: '',
-	  origin: '',
-	  destination: '',
-	  mileage: '',
-	  hoursOfService: '',
-	  remarks: '',
-	  signature: '',
+  const [logEntry, setLogEntry] = useState({
+    tripId: '',
+    remarks: '',
   });
 
   const onChange = (e) => {
-    setLog({ ...log, [e.target.name]: e.target.value });
+    setLogEntry({ ...logEntry, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post('http://localhost:8082/api/logEntries', log)
+      .post('http://localhost:8082/api/logEntries', logEntry)
       .then((res) => {
-        setLog({
-		driverId: '',
-		date: '',
-		startTime: '',
-		endTime: '',
-		purpose: '',
-		origin: '',
-		destination: '',
-		mileage: '',
-		hoursOfService: '',
-		remarks: '',
-		signature: '',
-	});
-
-        // Push to /
-        navigate('/logs');
+        setLogEntry({ tripId: '', remarks: '' });
+	navigate('/');
+        console.log('Log entry created successfully');
       })
       .catch((err) => {
-        console.log('Error in CreateLogEntry!');
+        console.log('Error in creating log entry');
       });
   };
 
@@ -59,7 +34,7 @@ const CreateLogEntry = (props) => {
         <div className='row'>
           <div className='col-md-8 m-auto'>
             <br />
-            <Link to='/logs' className='btn btn-outline-warning float-left'>
+            <Link to='/' className='btn btn-outline-warning float-left'>
               Show Log List
             </Link>
           </div>
@@ -71,10 +46,10 @@ const CreateLogEntry = (props) => {
               <div className='form-group'>
                 <input
                   type='text'
-                  placeholder='Date'
-                  name='date'
+                  placeholder='TripId'
+                  name='tripId'
                   className='form-control'
-                  value={log.date}
+                  value={logEntry.tripId}
                   onChange={onChange}
                 />
               </div>
@@ -83,102 +58,15 @@ const CreateLogEntry = (props) => {
               <div className='form-group'>
                 <input
                   type='text'
-                  placeholder='Start Time'
-                  name='startTime'
+                  placeholder='Remarks'
+                  name='remarks'
                   className='form-control'
-                  value={log.startTime}
+                  value={logEntry.remarks}
                   onChange={onChange}
                 />
               </div>
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='End Time'
-                  name='endTime'
-                  className='form-control'
-                  value={log.endTime}
-                  onChange={onChange}
-                />
-              </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Purpose'
-	                    name='purpose'
-	                    className='form-control'
-	                    value={log.purpose}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Origin'
-	                    name='origin'
-	                    className='form-control'
-	                    value={log.origin}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Desttination'
-	                    name='destination'
-	                    className='form-control'
-	                    value={log.destination}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Mileage'
-	                    name='mileage'
-	                    className='form-control'
-	                    value={log.mileage}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Hours Of Service'
-	                    name='hoursOfService'
-	                    className='form-control'
-	                    value={log.hoursOfService}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Remarks'
-	                    name='remarks'
-	                    className='form-control'
-	                    value={log.remarks}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
-	                <div className='form-group'>
-	                  <input
-	                    type='text'
-	                    placeholder='Signature'
-	                    name='signature'
-	                    className='form-control'
-	                    value={log.signature}
-	                    onChange={onChange}
-	                  />
-	                </div>
-
+		<br />
+		
               <input
                 type='submit'
                 className='btn btn-outline-warning btn-block mt-4'
