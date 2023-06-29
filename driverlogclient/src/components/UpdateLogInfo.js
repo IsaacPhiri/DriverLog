@@ -49,27 +49,50 @@ const UpdateLogInfo = ({ logEntryId }) => {
   };
 
   return (
+    <div className='container'>
+        <div className='row'>
+          <div className='col-md-8 m-auto'>
+            <br />
+            <Link to='/logs' className='btn btn-outline-warning float-left btn-sm'>
+              Logs
+            </Link>
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Log Entry</h1>
+            <p className='lead text-center'>Update Log</p>
+          </div>
+        </div>
+
+        <div className='col-md-8 m-auto'>
     <div>
       <form onSubmit={onSubmit}>
-        <div>
-          <label>Trip ID:</label>
+        <div className='form-group'>
+          <label htmlFor='tripId'>Trip ID</label>
           <input
             type="text"
+            placeholder='Trip ID'
+            name='tripId'
+            className='form-control'
             value={tripId}
             onChange={(e) => setTripId(e.target.value)}
           />
         </div>
-        <div>
-          <label>Remarks:</label>
+        <div className='form-group'>
+          <label htmlFor='remarks'>Remarks</label>
           <input
             type="text"
+            placeholder='Remarks'
+            name='remarks'
+            className='form-control'
             value={remarks}
             onChange={(e) => setRemarks(e.target.value)}
           />
         </div>
-        <button type="submit">Update</button>
+        <button type="submit" className='btn btn-outline-info btn-lg btn-block btn-sm'>Update</button>
       </form>
-      <button onClick={onDelete}>Delete</button>
+      <button onClick={onDelete} className='btn btn-outline-info btn-lg btn-block btn-sm'>Delete</button>
+    </div>
+    </div>
     </div>
   );
 };

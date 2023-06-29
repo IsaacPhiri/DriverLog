@@ -18,7 +18,14 @@ const ShowTrips = () => {
   }, []);
 
   return (
-    <table>
+    <div>
+      <div className='col-md-8 m-auto'>
+            <br />
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Trips</h1>
+          </div>
+    <table className='table table-hover'>
       <thead>
         <tr>
           <th>Driver ID</th>
@@ -48,6 +55,7 @@ const ShowTrips = () => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

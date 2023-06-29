@@ -18,7 +18,14 @@ const ShowHos = () => {
   }, []);
 
   return (
-    <table>
+    <div>
+      <div className='col-md-8 m-auto'>
+            <br />
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Hours Of Service</h1>
+          </div>
+    <table className='table table-hover'>
       <thead>
         <tr>
           <th>Driver ID</th>
@@ -34,6 +41,7 @@ const ShowHos = () => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

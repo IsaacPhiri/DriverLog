@@ -35,21 +35,22 @@ const CreateDriver = () => {
 
 
   return (
-    <div className='CreateDriver'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            
+    <div className='col-md-8 m-auto'>
+      <br />
+      <Link to='/' className='btn btn-outline-warning float-right btn-sm'>
+              Show Driver List
+            </Link>
+      <div className='col-md-10'>
+        
+        <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Add Driver</h1>
           </div>
-          <div className='class="d-flex p-2"'>
-            <p className='lead text-center'>Create new driver</p>
-
-            <form noValidate onSubmit={onSubmit} class="form-inline">
+          <div className='class="d-flex p-3"'>
+            <form noValidate onSubmit={onSubmit}>
               <div className='form-group'>
                 <input
                   type='text'
-                  placeholder='Name of Driver'
+                  placeholder='Full Name'
                   name='driverName'
                   className='form-control'
                   value={driver.driverName}
@@ -65,11 +66,8 @@ const CreateDriver = () => {
                   className='form-control'
                   value={driver.driverLicenseNumber}
                   onChange={onChange}
-	        />
+	               />
               </div>
-              <br />
-              <br />
-              <br />
               <div className='form-group'>
                 <input
                   type='text'
@@ -80,23 +78,15 @@ const CreateDriver = () => {
                   onChange={onChange}
                 />
               </div>
-              <br />
-              <br />
-              <br />
               <input
                 type='submit'
                 className='btn btn-outline-warning btn-block mt-4'
-                class="btn btn-primary"
               />
 
-              <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Driver List
-            </Link>
             </form>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

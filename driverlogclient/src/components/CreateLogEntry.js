@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link} from 'react-router-dom';
 
 const CreateLogEntry = () => {
   const [tripId, setTripId] = useState('');
@@ -24,25 +25,45 @@ const CreateLogEntry = () => {
   };
 
   return (
+    <div className='col-md-8 m-auto'>
+      <div className='row'>
+          <div className='col-md-8 m-auto'>
+            <br />
+            <Link to='/' className='btn btn-outline-warning float-right btn-sm'>
+              Show Driver List
+            </Link>
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Enter Log</h1>
+            <p className='lead text-center'>Update Log Info</p>
+          </div>
+        </div>
     <form onSubmit={onSubmit}>
-      <div>
-        <label>Trip ID:</label>
+      <div className='form-group'>
+      <label htmlFor='tripId'>Trip ID</label>
         <input
           type="text"
+          placeholder='TripID'
+          name='tripId'
+          className='form-control'
           value={tripId}
           onChange={(e) => setTripId(e.target.value)}
         />
       </div>
-      <div>
-        <label>Remarks:</label>
+      <div className='form-group'>
+        <label htmlFor='remarks'>Remarks</label>
         <input
           type="text"
+          placeholder='Remarks'
+          name='remarks'
+          className='form-control'
           value={remarks}
           onChange={(e) => setRemarks(e.target.value)}
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" className='btn btn-outline-info btn-sm btn-block'>Submit</button>
     </form>
+    </div>
   );
 };
 

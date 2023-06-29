@@ -33,7 +33,7 @@ function ShowDriverDetails(props) {
 
   const DriverItem = (
     <div>
-      <table className='table table-hover table-dark'>
+      <table className='table table-hover table-sm'>
         <tbody>
           <tr>
             <th scope='row'>1</th>
@@ -56,12 +56,11 @@ function ShowDriverDetails(props) {
   );
 
   return (
-    <div className='ShowDriverDetails'>
       <div className='container'>
         <div className='row'>
           <div className='col-md-10 m-auto'>
             <br /> <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
+            <Link to='/' className='btn btn-outline-warning float-left btn-sm'>
               Show Driver List
             </Link>
           </div>
@@ -72,37 +71,15 @@ function ShowDriverDetails(props) {
             <hr /> <br />
           </div>
           <div className='col-md-10 m-auto'>{DriverItem}</div>
-          <div className='col-md-6 m-auto'>
-            <button
-              type='button'
-              className='btn btn-outline-danger btn-lg btn-block'
-              onClick={() => {
-                onDeleteClick(driver._id);
-              }}
-            >
-              Delete Driver
-            </button>
-          </div>
-          <div className='col-md-6 m-auto'>
+          <div className='col-md-10 m-auto'>
             <Link
               to={`/edit-driver/${driver._id}`}
-              className='btn btn-outline-info btn-lg btn-block'
-            >
+              className='btn btn-outline-warning btn-block mt-4'>
               Edit Driver
             </Link>
           </div>
-	<div className='col-md-6 m-auto'>
-	              <Link
-	                to={`/enter-log/${driver._id}`}
-	                className='btn btn-outline-info btn-lg btn-block'
-	              >
-	                Enter Log
-	              </Link>
-	            </div>
-
         </div>
       </div>
-    </div>
   );
 }
 

@@ -52,35 +52,59 @@ const UpdateVehicleInfo = ({ vehicleId }) => {
   };
 
   return (
-    <div>
+        <div className='container'>
+        <div className='row'>
+          <div className='col-md-8 m-auto'>
+            <br />
+            <Link to='/vehicles' className='btn btn-outline-warning float-left btn-sm'>
+              Vehicles
+            </Link>
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Vehicle Details</h1>
+            <p className='lead text-center'>Update Vehicle info</p>
+          </div>
+        </div>
+
+        <div className='col-md-8 m-auto'>
       <form onSubmit={onSubmit}>
-        <div>
-          <label>Make:</label>
+        <div className='form-group'>
+          <label htmlFor='make'>Make</label>
           <input
             type="text"
+            placeholder='Make'
+            className='form-control'
+            name="make"
             value={make}
             onChange={(e) => setMake(e.target.value)}
           />
         </div>
-        <div>
-          <label>Model:</label>
+        <div className='form-group'>
+          <label htmlFor='model'>Model</label>
           <input
             type="text"
+            placeholder='Model'
+            className='form-control'
+            name="model"
             value={model}
             onChange={(e) => setModel(e.target.value)}
           />
         </div>
-        <div>
-          <label>License Plate:</label>
+        <div className='form-group'>
+          <label htmlFor='licensePlate'>License Plate</label>
           <input
             type="text"
+            placeholder='License Plate'
+            className='form-control'
+            name="licensePlate"
             value={licensePlate}
             onChange={(e) => setLicensePlate(e.target.value)}
           />
         </div>
-        <button type="submit">Update</button>
+        <button type="submit" className='btn btn-outline-info btn-lg btn-block btn-sm'>Update</button>
       </form>
-      <button onClick={onDelete}>Delete</button>
+      <button onClick={onDelete} className='btn btn-outline-info btn-lg btn-block btn-sm'>Delete</button>
+    </div>
     </div>
   );
 };

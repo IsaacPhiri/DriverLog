@@ -18,7 +18,14 @@ const ShowLogs = () => {
   }, []);
 
   return (
-    <table>
+    <div>
+      <div className='col-md-8 m-auto'>
+            <br />
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Logs</h1>
+          </div>
+    <table className='table table-hover'>
       <thead>
         <tr>
           <th>Trip ID</th>
@@ -34,6 +41,7 @@ const ShowLogs = () => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

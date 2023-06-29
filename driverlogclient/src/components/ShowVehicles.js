@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link} from 'react-router-dom';
 
 const ShowVehicles = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -18,7 +19,14 @@ const ShowVehicles = () => {
   }, []);
 
   return (
-    <table>
+    <div>
+      <div className='col-md-8 m-auto'>
+            <br />
+          </div>
+          <div className='col-md-8 m-auto'>
+            <h1 className='display-4 text-center'>Vehicles</h1>
+          </div>
+    <table className='table table-hover'>
       <thead>
         <tr>
           <th>Make</th>
@@ -36,6 +44,7 @@ const ShowVehicles = () => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

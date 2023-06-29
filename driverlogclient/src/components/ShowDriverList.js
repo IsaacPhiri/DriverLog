@@ -4,7 +4,6 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const ShowDriverList = () => {
   const [drivers, setDrivers] = useState([]);
-  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const ShowDriverList = () => {
     };
 
     fetchDrivers();
-  }, [id]);
+  }, []);
 
   const onDeleteClick = (id) => {
 	axios
@@ -33,9 +32,18 @@ const ShowDriverList = () => {
 
   return (
 	
-	<div className='col-md-12'>
-	<table className="table table-striped table-hover">
-      <thead class="thead-dark">
+	<div className="col-md-12">
+      <div className='col-md-12 m-auto'>
+        <br />
+        <Link to='/create-driver' className='btn btn-outline-warning float-right btn-sm'>
+          Add driver
+        </Link>
+      </div>
+    <div className='col-md-8 m-auto'>
+        <h1 className='display-4 text-center'>Drivers</h1>
+    </div>
+	  <table className="table table-hover table-sm">
+      <thead >
         <tr>
           <th>Driver's Name</th>
           <th>Driver's License Number</th>
@@ -54,7 +62,7 @@ const ShowDriverList = () => {
 			<div >
 		  		<button
 				type='button'
-				className='btn btn-outline-danger btn-lg btn-block'
+				className='btn btn-outline-danger btn-sm'
 				onClick={() => {onDeleteClick(driver._id);}}> Delete
 		  		</button>
 			</div>
@@ -62,7 +70,7 @@ const ShowDriverList = () => {
 			<td>
 			<div >
 		  		<Link to={`/edit-driver/${driver._id}`}
-				className='btn btn-outline-info btn-lg btn-block'> Edit
+				className='btn btn-outline-info btn-sm'> Edit
 		  		</Link>
 			</div>
 			</td>
