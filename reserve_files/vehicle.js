@@ -1,4 +1,4 @@
-export class Vehicle {
+class Vehicle {
     constructor(make, model, licensePlate, odometer) {
       this.make = make;
       this.model = model;
@@ -6,3 +6,5 @@ export class Vehicle {
       this.odometer = odometer;
     }
   }
+
+module.exports = Vehicle;

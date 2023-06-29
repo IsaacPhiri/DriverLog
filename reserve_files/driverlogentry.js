@@ -1,4 +1,4 @@
-export class DriverLogEntry {
+class DriverLogEntry {
     constructor(date, trip, hoursOfService, vehicle, driver, remarks) {
       this.date = date;
       this.trip = trip;
@@ -20,8 +20,10 @@ export class DriverLogEntry {
       console.log(`Mileage: ${this.trip.mileage}`);
       console.log(`Hours of Service: ${this.hoursOfService.hours}`);
       console.log(`Vehicle Information: Make: ${this.vehicle.make}, Model: ${this.vehicle.model}, License Plate: ${this.vehicle.licensePlate}, Odometer: ${this.vehicle.odometer}`);
-      console.log(`Driver Information: Name: ${this.driver.name}, License Number: ${this.driver.licenseNumber}, ${this.driver.nrc}`);
+      console.log(`Driver Information: Name: ${this.driver.name}, License Number: ${this.driver.licenseNumber}, NRC: ${this.driver.nrc}`);
       console.log(`Remarks: ${this.remarks}`);
       console.log(`Signature: ${this.signature}`);
   }  
 }
+
+module.exports = DriverLogEntry;

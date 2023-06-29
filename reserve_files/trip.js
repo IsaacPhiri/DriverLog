@@ -1,4 +1,4 @@
-export class Trip {
+class Trip {
     constructor(startTime, endTime, purpose, origin, destination, mileage) {
       this.startTime = startTime;
       this.endTime = endTime;
@@ -8,3 +8,5 @@ export class Trip {
       this.mileage = mileage;
     }
   }
+
+module.exports = Trip;

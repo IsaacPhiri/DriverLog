@@ -40,15 +40,12 @@ const CreateDriver = () => {
         <div className='row'>
           <div className='col-md-8 m-auto'>
             <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Driver List
-            </Link>
+            
           </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Drive</h1>
+          <div className='class="d-flex p-2"'>
             <p className='lead text-center'>Create new driver</p>
 
-            <form noValidate onSubmit={onSubmit}>
+            <form noValidate onSubmit={onSubmit} class="form-inline">
               <div className='form-group'>
                 <input
                   type='text'
@@ -59,7 +56,6 @@ const CreateDriver = () => {
                   onChange={onChange}
                 />
               </div>
-              <br />
 
               <div className='form-group'>
                 <input
@@ -71,7 +67,9 @@ const CreateDriver = () => {
                   onChange={onChange}
 	        />
               </div>
-
+              <br />
+              <br />
+              <br />
               <div className='form-group'>
                 <input
                   type='text'
@@ -82,11 +80,18 @@ const CreateDriver = () => {
                   onChange={onChange}
                 />
               </div>
-
+              <br />
+              <br />
+              <br />
               <input
                 type='submit'
                 className='btn btn-outline-warning btn-block mt-4'
+                class="btn btn-primary"
               />
+
+              <Link to='/' className='btn btn-outline-warning float-left'>
+              Show Driver List
+            </Link>
             </form>
           </div>
         </div>
