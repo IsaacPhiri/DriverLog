@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
       res.json(vehicle);
     })
     .catch(err => {
-      res.status(400).json({ error: 'Unable to create a new vehicle' });
+      res.status(400).json({ error: 'Unable to create a new vehicle', err });
     });
 });
 
