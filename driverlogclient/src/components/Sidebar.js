@@ -1,9 +1,11 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+class Sidebar extends HTMLElement {
+  constructor() {
+    super();
+  }
 
-const Sidebar = () => {
-
-  return (
+  connectedCallback() {
+    this.innerHTML = `
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="index3.html" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"/>
@@ -74,7 +76,8 @@ const Sidebar = () => {
       </nav>
     </div>
   </aside>
-  );
-};
+  `;
+  }
+}
 
-export default Sidebar;
+customElements.define('sidebar-component', Sidebar);
