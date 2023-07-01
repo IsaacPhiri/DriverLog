@@ -18,7 +18,7 @@ const UpdateTripInfo = ({ Id }) => {
   useEffect(() => {
     const fetchTrip = async () => {
       try {
-        const res = await axios.get(`http://localhost:8082/api/trips/${Id}`);
+        const res = await axios.get(`http://localhost:8082/api/trip/${Id}`);
         setTripData(res.data);
       } catch (err) {
         console.error(err);
@@ -36,7 +36,7 @@ const UpdateTripInfo = ({ Id }) => {
     e.preventDefault();
 
     try {
-      const res = await axios.put(`http://localhost:8082/api/trips/${Id}`, tripData);
+      const res = await axios.put(`http://localhost:8082/api/trip/${Id}`, tripData);
       console.log(res.data);
       // Handle successful submission
     } catch (err) {
@@ -47,7 +47,7 @@ const UpdateTripInfo = ({ Id }) => {
 
   const onDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8082/api/trips/${Id}`);
+      await axios.delete(`http://localhost:8082/api/trip/${Id}`);
       // Handle successful deletion
     } catch (err) {
       console.error(err);

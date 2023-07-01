@@ -7,7 +7,7 @@ const ShowLogs = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const res = await axios.get('http://localhost:8082/api/logs');
+        const res = await axios.get('http://localhost:8082/api/logentries');
         setLogs(res.data);
       } catch (err) {
         console.error(err);

@@ -10,7 +10,7 @@ const UpdateVehicleInfo = ({ vehicleId }) => {
   useEffect(() => {
     const fetchVehicle = async () => {
       try {
-        const res = await axios.get(`http://localhost:8082/api/vehicles/${vehicleId}`);
+        const res = await axios.get(`http://localhost:8082/api/vehicle/${vehicleId}`);
         const { make, model, licensePlate } = res.data;
         setMake(make);
         setModel(model);
@@ -33,7 +33,7 @@ const UpdateVehicleInfo = ({ vehicleId }) => {
     };
 
     try {
-      const res = await axios.put(`http://localhost:8082/api/vehicles/${vehicleId}`, vehicleData);
+      const res = await axios.put(`http://localhost:8082/api/vehicle/${vehicleId}`, vehicleData);
       console.log(res.data);
       // Handle successful update
     } catch (err) {
@@ -44,7 +44,7 @@ const UpdateVehicleInfo = ({ vehicleId }) => {
 
   const onDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8082/api/vehicles/${vehicleId}`);
+      await axios.delete(`http://localhost:8082/api/vehicle/${vehicleId}`);
       // Handle successful deletion
     } catch (err) {
       console.error(err);

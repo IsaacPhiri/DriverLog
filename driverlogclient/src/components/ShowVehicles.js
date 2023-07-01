@@ -8,7 +8,7 @@ const ShowVehicles = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const res = await axios.get('http://localhost:8082/api/vehicles');
+        const res = await axios.get('http://localhost:8082/api/vehicle');
         setVehicles(res.data);
       } catch (err) {
         console.error(err);
@@ -19,14 +19,17 @@ const ShowVehicles = () => {
   }, []);
 
   return (
-    <div>
-      <div className='col-md-8 m-auto'>
-            <br />
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Vehicles</h1>
-          </div>
-    <table className='table table-hover'>
+    <div className="col-md-12">
+      <div className='col-md-12 m-auto'>
+        <br />
+        <Link to='/create-vehicle' className='btn btn-outline-warning float-right btn-sm'>
+          Add Vehicle
+        </Link>
+      </div>
+    <div className='col-md-8 m-auto'>
+        <h1 className='display-4 text-center'>Vehicles</h1>
+    </div>
+	  <table className="table table-hover table-sm">
       <thead>
         <tr>
           <th>Make</th>

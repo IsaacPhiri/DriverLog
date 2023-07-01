@@ -9,7 +9,7 @@ const UpdateHosInfo = ({ hosId }) => {
   useEffect(() => {
     const fetchHos = async () => {
       try {
-        const res = await axios.get(`http://localhost:8082/api/hos/${hosId}`);
+        const res = await axios.get(`http://localhost:8082/api/hoursOfService/${hosId}`);
         const { driverId, hours } = res.data;
         setDriverId(driverId);
         setHours(hours);
@@ -30,7 +30,7 @@ const UpdateHosInfo = ({ hosId }) => {
     };
 
     try {
-      const res = await axios.put(`http://localhost:8082/api/hos/${hosId}`, hosData);
+      const res = await axios.put(`http://localhost:8082/api/hoursOfService/${hosId}`, hosData);
       console.log(res.data);
       // Handle successful update
     } catch (err) {
@@ -41,7 +41,7 @@ const UpdateHosInfo = ({ hosId }) => {
 
   const onDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8082/api/hos/${hosId}`);
+      await axios.delete(`http://localhost:8082/api/hoursOfService/${hosId}`);
       // Handle successful deletion
     } catch (err) {
       console.error(err);
