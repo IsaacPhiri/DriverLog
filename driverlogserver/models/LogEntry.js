@@ -1,14 +1,33 @@
 const mongoose = require('mongoose');
 
 const LogEntrySchema = new mongoose.Schema({
-	tripId: {
+	driver: {
 		type: mongoose.Schema.Types.ObjectId,
-                ref: 'Trip',
+		ref: 'Driver', required: true
 	},
-	remarks: {
-	        type: String,
-	        required: false
+	logDate: {
+		type: Date,
+		default: Date.now
+	},
+	dutyStatus: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'DutyStatus',
+		required: true
+	},
+	vehicle: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Vehicle',
+		required: true
+	},
+	trip: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Trip'
+	},
+	comments: {
+		type: String,
+		required: true
 	},
 });
 
-module.exports = LogEntry = mongoose.model('LogEntry', LogEntrySchema);
+const LogEntry = mongoose.model('LogEntry', LogEntrySchema);
+module.exports = LogEntry;
