@@ -1,4 +1,3 @@
-// routes/api/logEntries.js
 const express = require('express');
 const router = express.Router();
 
@@ -10,7 +9,9 @@ const LogEntry = require('../../models/LogEntry');
 // @access Public
 router.get('/', (req, res) => {
   LogEntry.find()
-    .populate('tripId')
+    .populate('trip')
+    .populate('driver')
+    .populate('vehicle')
     .then(logEntries => {
       res.json(logEntries);
     })
@@ -24,8 +25,11 @@ router.get('/', (req, res) => {
 // @access Public
 router.post('/', (req, res) => {
   const newLogEntry = new LogEntry({
-    tripId: req.body.tripId,
-    remarks: req.body.remarks
+    driver: req.body.driver,
+    logDate: req.body.logDate,
+    vehicle: req.body.vehicle,
+    trip: req.body.trip,
+    comments: req.body.comments,
   });
 
   newLogEntry.save()
@@ -42,7 +46,9 @@ router.post('/', (req, res) => {
 // @access Public
 router.get('/:id', (req, res) => {
   LogEntry.findById(req.params.id)
-    .populate('tripId')
+    .populate('trip')
+    .populate('driver')
+    .populate('vehicle')
     .then(logEntry => {
       if (!logEntry) {
         return res.status(404).json({ error: 'Log entry not found' });
