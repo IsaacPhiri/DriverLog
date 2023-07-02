@@ -6,10 +6,10 @@ const cors = require('cors');
 
 // routes
 const drivers = require('./routes/api/drivers');
-const logentries = require('./routes/api/logEntries');
-const vehicleRoutes = require('./routes/api/vehicle');
-const hoursOfServiceRoutes = require('./routes/api/hoursOfService');
-const trips = require('./routes/api/trip');
+const logentries = require('./routes/api/logentries');
+const vehicles = require('./routes/api/vehicles');
+const dutystatus = require('./routes/api/dutystatus');
+const trips = require('./routes/api/trips');
 
 const app = express();
 
@@ -28,10 +28,10 @@ app.get('/', (req, res) =>
 
 // use Routes
 app.use('/api/drivers', drivers);
-app.use('/api/logEntries', logentries);
-app.use('/api/vehicle', vehicleRoutes);
-app.use('/api/hours-of-service', hoursOfServiceRoutes);
-app.use('/api/trip', trips);
+app.use('/api/logentries', logentries);
+app.use('/api/vehicles', vehicles);
+app.use('/api/dutystatus', dutystatus);
+app.use('/api/trips', trips);
 
 const port = process.env.PORT || 8082;
 
