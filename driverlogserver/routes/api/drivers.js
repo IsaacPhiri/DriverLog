@@ -1,4 +1,3 @@
-// routes/api/drivers.js
 const express = require('express');
 const router = express.Router();
 
@@ -7,10 +6,9 @@ const Driver = require('../../models/Driver');
 
 // @route GET api/drivers/test
 // @description tests drivers route
-// @accesc Public
-
+// @access Public
 router.get('/test', (req, res) =>
-	res.send('driver route testing!')
+  res.send('driver route testing!')
 );
 
 // @route GET api/drivers
@@ -25,7 +23,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/driver/:id
+// @route GET api/drivers/:id
 // @description Get single driver by ID
 // @access Public
 router.get('/:id', async (req, res) => {
@@ -44,10 +42,28 @@ router.get('/:id', async (req, res) => {
 // @description add/save driver
 // @access Public
 router.post('/', (req, res) => {
+  const {
+    firstName,
+    lastName,
+    licenseNumber,
+    nationalId,
+    contactNumber,
+    email,
+    homeAddress,
+    licenseExpiryDate,
+    totalWorkingHours
+  } = req.body;
+
   const newDriver = new Driver({
-    driverName: req.body.driverName,
-    driverLicenseNumber: req.body.driverLicenseNumber,
-    national_ID: req.body.national_ID
+    firstName,
+    lastName,
+    licenseNumber,
+    nationalId,
+    contactNumber,
+    email,
+    homeAddress,
+    licenseExpiryDate,
+    totalWorkingHours
   });
 
   newDriver.save()
@@ -59,7 +75,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// @route PUT api/driver/:id
+// @route PUT api/drivers/:id
 // @description Update driver
 // @access Public
 router.put('/:id', (req, res) => {
@@ -72,7 +88,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// @route DELETE api/driver/:id
+// @route DELETE api/drivers/:id
 // @description Delete driver by id
 // @access Public
 router.delete('/:id', (req, res) => {
