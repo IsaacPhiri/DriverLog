@@ -3,16 +3,12 @@ const mongoose = require('mongoose');
 const LogEntrySchema = new mongoose.Schema({
 	driver: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Driver', required: true
+		ref: 'Driver',
+		required: true
 	},
 	logDate: {
 		type: Date,
 		default: Date.now
-	},
-	dutyStatus: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'DutyStatus',
-		required: true
 	},
 	vehicle: {
 		type: mongoose.Schema.Types.ObjectId,
