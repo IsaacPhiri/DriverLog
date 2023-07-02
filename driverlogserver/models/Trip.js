@@ -1,7 +1,7 @@
 // Load required packages
 const mongoose = require('mongoose');
 
-const tripSchema = new mongoose.Schema({
+const TripSchema = new mongoose.Schema({
 	origin: {
 		type: String,
 		required: true
@@ -31,7 +31,7 @@ const tripSchema = new mongoose.Schema({
 });
 
 // Calculate distance and total mileage before saving the trip
-tripSchema.pre('save', function (next) {
+TripSchema.pre('save', function (next) {
 	this.distance = calculateDistance(this.origin, this.destination);
   	this.totalMileage = this.endMileage - this.startMileage;
 	next();
