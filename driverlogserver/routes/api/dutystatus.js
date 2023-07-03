@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Load DutyStatus model
 const DutyStatus = require('../../models/DutyStatus');
-const Driver = require('../../models/Driver');
+
 
 // @route GET api/dutystatus/test
 // @description tests dutystatus route
@@ -44,11 +44,10 @@ router.get('/:id', async (req, res) => {
 // @access Public
 router.post('/', async (req, res) => {
   try {
-    const { startDuty, endDuty } = req.body;
-
     const dutyStatus = new DutyStatus({
-      startDuty,
-      endDuty,
+      startDuty: req.body.startDuty,
+      endDuty: req.body.endDuty,
+      driver: req.body.driverId
     });
 
     const savedDutyStatus = await dutyStatus.save();

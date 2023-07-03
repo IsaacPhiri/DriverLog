@@ -3,10 +3,15 @@ const mongoose = require('mongoose');
 const DutyStatusSchema = new mongoose.Schema({
     startDuty: {
         type: Date,
-        default: Date.now
+        //default: Date.now
     },
     endDuty: {
         type: Date
+    },
+    driver: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Driver',
+        required: true
     },
 });
 
