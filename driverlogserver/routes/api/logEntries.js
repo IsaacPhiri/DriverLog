@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
     .populate('trip')
     .populate('driver')
     .populate('vehicle')
-    .then(logEntries => {
-      res.json(logEntries);
+    .then(logentries => {
+      res.json(logentries);
     })
     .catch(err => {
       res.status(500).json({ error: 'Unable to fetch log entries' });
