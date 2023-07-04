@@ -50,8 +50,7 @@ router.post('/', (req, res) => {
     contactNumber,
     email,
     homeAddress,
-    licenseExpiryDate,
-    totalWorkingHours
+    licenseExpiryDate
   } = req.body;
 
   const newDriver = new Driver({
@@ -62,8 +61,7 @@ router.post('/', (req, res) => {
     contactNumber,
     email,
     homeAddress,
-    licenseExpiryDate,
-    totalWorkingHours
+    licenseExpiryDate
   });
 
   newDriver.save()
