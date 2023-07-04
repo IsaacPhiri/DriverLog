@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const DutyStatusSchema = new mongoose.Schema({
     startDuty: {
-        type: Number,
-        //default: Date.now
+        type: Date,
+        default: Date.now
     },
     endDuty: {
-        type: Number,
+        type: Date,
     },
     totalWorkingHours: {
 		type: Number,
@@ -19,15 +19,27 @@ const DutyStatusSchema = new mongoose.Schema({
     },
 });
 
-// Pre-save middleware to calculate total working hours
-DutyStatusSchema.pre('save', function (next) {
-    if (this.startDuty && this.endDuty) {
-      const milliseconds = this.endDuty - this.startDuty;
-      //const hours = milliseconds / 1000 / 60 / 60;
-      this.totalWorkingHours += milliseconds;
-    }
-    next();
-  });
+// Calculate the working hours when startDuty or endDuty is modified
+DutyStatusSchema.pre('save', function(next) {
+  if (this.isModified('startDuty') || this.isModified('endDuty')) {
+    const start = this.startDuty.getTime();
+    const end = this.endDuty ? this.endDuty.getTime() : Date.now();
+    const workingHours = Math.abs(end - start) / 36e5; // Divide by 36e5 to convert milliseconds to hours
+    this.totalWorkingHours = workingHours;
+  }
+  next();
+});
+
+// Calculate the working hours when endDuty is updated directly
+DutyStatusSchema.pre('findOneAndUpdate', function(next) {
+  if (this._update.endDuty) {
+    const start = this._update.startDuty.getTime();
+    const end = this._update.endDuty.getTime();
+    const workingHours = Math.abs(end - start) / 36e5;
+    this._update.totalWorkingHours = workingHours;
+  }
+  next();
+});
 
 const DutyStatus = mongoose.model('DutyStatus', DutyStatusSchema);
 module.exports = DutyStatus;
