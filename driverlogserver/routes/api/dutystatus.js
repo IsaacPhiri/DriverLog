@@ -15,13 +15,15 @@ router.get('/test', (req, res) => {
 // @route GET api/dutystatus
 // @description Get all duty statuses
 // @access Public
-router.get('/', async (req, res) => {
-  try {
-    const dutyStatuses = await DutyStatus.find();
-    res.json(dutyStatuses);
-  } catch (error) {
+router.get('/', (req, res) => {
+  DutyStatus.find()
+    .populate('driver')
+    .then(DutyStatus => {
+      res.json(DutyStatus);
+    })
+  .catch (err => {
     res.status(404).json({ error: 'No duty statuses found' });
-  }
+  });
 });
 
 // @route GET api/dutystatus/:id
@@ -42,20 +44,22 @@ router.get('/:id', async (req, res) => {
 // @route POST api/dutystatus
 // @description add/save duty status
 // @access Public
-router.post('/', async (req, res) => {
-  try {
+router.post('/', (req, res) => {
     const dutyStatus = new DutyStatus({
       startDuty: req.body.startDuty,
       endDuty: req.body.endDuty,
-      driver: req.body.driverId
+      totalWorkingHours: req.body.totalWorkingHours,
+      driver: req.body.driver
     });
 
-    const savedDutyStatus = await dutyStatus.save();
-    res.json({ msg: 'Duty status added successfully', dutyStatus: savedDutyStatus });
-  } catch (error) {
-    res.status(400).json({ error: 'Unable to add this duty status' });
-  }
-});
+    dutyStatus.save()
+      .then(DutyStatus => {
+        res.json(DutyStatus);
+      })
+        .catch (err => {
+          res.status(400).json({ error: 'Unable to add this duty status' });
+        });
+      });
 
 // @route PUT api/dutystatus/:id
 // @description Update duty status
