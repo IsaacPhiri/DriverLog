@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 
 const DutyStatusSchema = new mongoose.Schema({
     startDuty: {
-        type: Date,
+        type: Number,
         //default: Date.now
     },
     endDuty: {
-        type: Date
+        type: Number,
     },
+    totalWorkingHours: {
+		type: Number,
+		default: 0,
+	},
     driver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Driver',
@@ -15,25 +19,15 @@ const DutyStatusSchema = new mongoose.Schema({
     },
 });
 
-// Set the endDuty field when a value is provided
+// Pre-save middleware to calculate total working hours
 DutyStatusSchema.pre('save', function (next) {
-    if (this.isModified('endDuty') && !this.endDuty) {
-        this.endDuty = new Date();
+    if (this.startDuty && this.endDuty) {
+      const milliseconds = this.endDuty - this.startDuty;
+      //const hours = milliseconds / 1000 / 60 / 60;
+      this.totalWorkingHours += milliseconds;
     }
     next();
-});
-
-// Calculate the duration between startDuty and endDuty
-// and append it to the driver's totalWorkHours
-DutyStatusSchema.pre('save', async function (next) {
-    if (this.isModified('endDuty')) {
-        const driver = await mongoose.model('Driver').findById(this.driver);
-        const duration = this.endDuty - this.startDuty;
-        driver.totalWorkHours += duration;
-        await driver.save();
-    }
-    next();
-});
+  });
 
 const DutyStatus = mongoose.model('DutyStatus', DutyStatusSchema);
 module.exports = DutyStatus;
