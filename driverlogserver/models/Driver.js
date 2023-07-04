@@ -47,14 +47,6 @@ const DriverSchema = new mongoose.Schema({
 		type: Date,
 		required: true
 	},
-	totalWorkingHours: {
-		type: Number,
-		default: 0,
-	},
-	logEntries: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'LogEntry',
-	}],
 });
 
 const Driver = mongoose.model('Driver', DriverSchema);
