@@ -5,11 +5,11 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 
 // routes
-const drivers = require('./routes/api/drivers');
-const logentries = require('./routes/api/logentries');
-const vehicles = require('./routes/api/vehicles');
-const dutystatus = require('./routes/api/dutystatus');
-const trips = require('./routes/api/trips');
+const driversRoutes = require('./routes/api/drivers');
+const logentriesRoutes = require('./routes/api/logentries');
+const vehiclesRoutes = require('./routes/api/vehicles');
+const dutystatusRoutes = require('./routes/api/dutystatus');
+const tripsRoutes = require('./routes/api/trips');
 
 const app = express();
 
@@ -27,11 +27,11 @@ app.get('/', (req, res) =>
 );
 
 // use Routes
-app.use('/api/drivers', drivers);
-app.use('/api/logentries', logentries);
-app.use('/api/vehicles', vehicles);
-app.use('/api/dutystatus', dutystatus);
-app.use('/api/trips', trips);
+app.use('/api/drivers', driversRoutes);
+app.use('/api/logentries', logentriesRoutes);
+app.use('/api/vehicles', vehiclesRoutes);
+app.use('/api/dutystatus', dutystatusRoutes);
+app.use('/api/trips', tripsRoutes);
 
 const port = process.env.PORT || 8082;
 
