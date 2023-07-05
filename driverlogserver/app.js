@@ -10,6 +10,7 @@ const logentriesRoutes = require('./routes/api/logentries');
 const vehiclesRoutes = require('./routes/api/vehicles');
 const dutystatusRoutes = require('./routes/api/dutystatus');
 const tripsRoutes = require('./routes/api/trips');
+const authRoutes = require('./routes/api/auth');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/logentries', logentriesRoutes);
 app.use('/api/vehicles', vehiclesRoutes);
 app.use('/api/dutystatus', dutystatusRoutes);
 app.use('/api/trips', tripsRoutes);
+app.use('/api/auth', authRoutes);
 
 const port = process.env.PORT || 8082;
 
