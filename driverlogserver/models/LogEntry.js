@@ -22,7 +22,8 @@ const LogEntrySchema = new mongoose.Schema({
 	comments: {
 		type: String,
 		required: true
-	},
+	}
+}, { timestamps: true
 });
 
 const LogEntry = mongoose.model('LogEntry', LogEntrySchema);

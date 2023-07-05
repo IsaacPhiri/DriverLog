@@ -46,7 +46,8 @@ const DriverSchema = new mongoose.Schema({
 	licenseExpiryDate: {
 		type: Date,
 		required: true
-	},
+	}
+}, { timestamps: true
 });
 
 const Driver = mongoose.model('Driver', DriverSchema);

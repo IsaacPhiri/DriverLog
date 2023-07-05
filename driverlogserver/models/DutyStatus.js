@@ -16,7 +16,8 @@ const DutyStatusSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Driver',
         required: true
-    },
+    }
+}, { timestamps: true
 });
 
 // Calculate the working hours when startDuty or endDuty is modified

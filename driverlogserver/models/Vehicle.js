@@ -19,7 +19,8 @@ const VehicleSchema = new mongoose.Schema({
 		},
 		message: 'License plate must be in the format AAA1234'
 	}
-},
+}
+}, { timestamps: true
 });
 
 const Vehicle = mongoose.model('Vehicle', VehicleSchema);

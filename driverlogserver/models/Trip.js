@@ -27,7 +27,8 @@ const TripSchema = new mongoose.Schema({
 	},
 	totalMileage: {
 		type: Number
-	},
+	}
+}, { timestamps: true
 });
 
 // Calculate distance and total mileage before saving the trip
