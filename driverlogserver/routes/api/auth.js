@@ -2,11 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/Admin');
+const Admin = require('../../models/Admin');
 
 // Register a new admin user
 router.post('/register', async (req, res) => {
-  try {
+    // Check if any admin user already exists
+    const existingAdmin = await Admin.findOne();
+    if (existingAdmin) {
+      return res.status(400).json({ error: 'Admin user already exists' });
+    }
+    try {
     const { username, password } = req.body;
 
     // Check if the admin user already exists
@@ -34,7 +39,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Update admin user
-router.put('/admin/:id', async (req, res) => {
+router.put('/register/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const { username, password } = req.body;
