@@ -46,7 +46,13 @@ const DriverSchema = new mongoose.Schema({
 	licenseExpiryDate: {
 		type: Date,
 		required: true
-	}
+	},
+	role: {
+		type: String,
+		required: true,
+		enum: ['driver', 'admin'],
+		default: 'driver',
+	},
 }, { timestamps: true
 });
 
