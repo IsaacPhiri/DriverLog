@@ -38,41 +38,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route POST api/drivers
-// @description add/save driver
-// @access Public
-router.post('/', (req, res) => {
-  const {
-    firstName,
-    lastName,
-    licenseNumber,
-    nationalId,
-    contactNumber,
-    email,
-    homeAddress,
-    licenseExpiryDate
-  } = req.body;
-
-  const newDriver = new Driver({
-    firstName,
-    lastName,
-    licenseNumber,
-    nationalId,
-    contactNumber,
-    email,
-    homeAddress,
-    licenseExpiryDate
-  });
-
-  newDriver.save()
-    .then(driver => {
-      res.json({ msg: 'Driver added successfully', driver });
-    })
-    .catch(err => {
-      res.status(400).json({ error: 'Unable to add this driver' });
-    });
-});
-
 // @route PUT api/drivers/:id
 // @description Update driver
 // @access Public
