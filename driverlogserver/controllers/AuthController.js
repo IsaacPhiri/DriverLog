@@ -76,7 +76,7 @@ const signup = (req, res, next) => {
             homeAddress,
             licenseExpiryDate,
             password,
-            password_confirmation
+            password_
          });
          bcrypt.genSalt(10, function(err, salt) { bcrypt.hash(password, salt, function(err, hash) {
          if (err) throw err;
