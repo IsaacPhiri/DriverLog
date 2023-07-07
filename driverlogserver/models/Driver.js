@@ -35,7 +35,7 @@ const DriverSchema = new mongoose.Schema({
 		type: String,
 		required: false,
 		match: [
-			/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
 			'Email should be of the format johndoe@gmail.com',
 		  ],
 	},
@@ -52,6 +52,14 @@ const DriverSchema = new mongoose.Schema({
 		required: true,
 		enum: ['driver', 'admin'],
 		default: 'driver',
+	},
+	password: {
+		type: String,
+		required: true,
+	},
+	password_confirmation: {
+		type: String,
+		required: true,
 	},
 }, { timestamps: true
 });
