@@ -6,3 +6,5 @@ const createJWT = (email, userId, duration) => {
     expiresIn: duration,
    });
 };
+
+module.exports = createJWT;
