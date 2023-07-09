@@ -57,10 +57,6 @@ const DriverSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	password_confirmation: {
-		type: String,
-		required: true,
-	},
 }, { timestamps: true
 });
 
