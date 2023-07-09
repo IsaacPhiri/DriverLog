@@ -2,7 +2,7 @@ const Driver = require('../models/Driver');
 const Admin = require('../models/Admin');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { createJWT, } = require("../utils/auth");
+const createJWT = require("../utils/auth");
 
 const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
@@ -66,7 +66,7 @@ const signup = (req, res, next) => {
       if (driver) {
          return res.status(422).json({ errors: [{ driver: "email already exists" }] });
       }else {
-         const driver = new driver({
+         const driver = new Driver({
             firstName,
             lastName,
             licenseNumber,
@@ -75,8 +75,7 @@ const signup = (req, res, next) => {
             email,
             homeAddress,
             licenseExpiryDate,
-            password,
-            password_
+            password
          });
          bcrypt.genSalt(10, function(err, salt) { bcrypt.hash(password, salt, function(err, hash) {
          if (err) throw err;
@@ -95,6 +94,7 @@ const signup = (req, res, next) => {
       res.status(500).json({
         errors: [{ error: 'Something went wrong' }]
       });
+      console.log(err);
   })
 }
 
@@ -114,7 +114,8 @@ const signin = (req, res) => {
         return res.status(422).json({ errors: errors });
       }
 
-     driver.findOne({ email: email }).then(driver => {
+     Driver.findOne({ email: email })
+     .then(driver => {
        if (!driver) {
          return res.status(404).json({
            errors: [{ driver: "not found" }],
@@ -136,6 +137,7 @@ const signin = (req, res) => {
          });
         }).catch(err => {
           res.status(500).json({ erros: err });
+          console.log(err);
         });
       }
    }).catch(err => {
