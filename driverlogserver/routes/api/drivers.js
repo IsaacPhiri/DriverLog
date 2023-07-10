@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const requireAdmin = require('../../middleware/authMiddleware');
 
 // Load Driver model
 const Driver = require('../../models/Driver');
@@ -14,7 +15,7 @@ router.get('/test', (req, res) =>
 // @route GET api/drivers
 // @description Get all drivers
 // @access Public
-router.get('/', async (req, res) => {
+router.get('/', requireAdmin, async (req, res) => {
   try {
     const drivers = await Driver.find();
     res.json(drivers);
