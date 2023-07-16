@@ -2,11 +2,14 @@
 const mongoose = require('mongoose');
 
 const adminSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  email: {
+		type: String,
+		required: false,
+		match: [
+			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+			'Email should be of the format johndoe@gmail.com',
+		  ],
+	},
   password: {
     type: String,
     required: true,
