@@ -1,6 +1,7 @@
 // vehicle.js
 const express = require('express');
 const router = express.Router();
+const requireAdmin = require('../../middleware/authMiddleware');
 
 // Load Vehicle model
 const Vehicle = require('../../models/Vehicle');
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
 // @route POST api/vehicles
 // @description Create a new vehicle
 // @access Public
-router.post('/', (req, res) => {
+router.post('/', requireAdmin, (req, res) => {
   const newVehicle = new Vehicle({
     make: req.body.make,
     model: req.body.model,
@@ -56,7 +57,7 @@ router.get('/:id', (req, res) => {
 // @route PUT api/vehicles/:id
 // @description Update a vehicle by ID
 // @access Public
-router.put('/:id', (req, res) => {
+router.put('/:id', requireAdmin, (req, res) => {
   Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(vehicle => {
       if (!vehicle) {
@@ -72,7 +73,7 @@ router.put('/:id', (req, res) => {
 // @route DELETE api/vehicles/:id
 // @description Delete a vehicle by ID
 // @access Public
-router.delete('/:id', (req, res) => {
+router.delete('/:id', requireAdmin, (req, res) => {
   Vehicle.findByIdAndRemove(req.params.id)
     .then(vehicle => {
       if (!vehicle) {

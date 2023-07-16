@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const requireAdmin = require('../../middleware/authMiddleware');
 
 const Trip = require('../../models/Trip');
 
@@ -59,7 +60,7 @@ router.get('/:id', (req, res) => {
 // @route PUT api/trips/:id
 // @description Update a trip by ID
 // @access Public
-router.put('/:id', (req, res) => {
+router.put('/:id', requireAdmin, (req, res) => {
   Trip.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(trip => {
       if (!trip) {
@@ -75,7 +76,7 @@ router.put('/:id', (req, res) => {
 // @route DELETE api/trips/:id
 // @description Delete a trip by ID
 // @access Public
-router.delete('/:id', (req, res) => {
+router.delete('/:id', requireAdmin, (req, res) => {
   Trip.findByIdAndRemove(req.params.id)
     .then(trip => {
       if (!trip) {

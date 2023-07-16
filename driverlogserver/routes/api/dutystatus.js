@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const requireRole = require('../../middleware/requireRole');
+const requireAdmin = require('../../middleware/authMiddleware');
 
 // Load DutyStatus model
 const DutyStatus = require('../../models/DutyStatus');
@@ -16,7 +16,7 @@ router.get('/test', (req, res) => {
 // @route GET api/dutystatus
 // @description Get all duty statuses
 // @access Public
-router.get('/', (req, res) => {
+router.get('/', requireAdmin, (req, res) => {
   DutyStatus.find()
     .populate('driver')
     .then(DutyStatus => {
@@ -30,15 +30,15 @@ router.get('/', (req, res) => {
 // @route GET api/dutystatus/:id
 // @description Get single duty status by ID
 // @access Public
-router.get('/:id', async (req, res) => {
+router.get('/:id', requireAdmin, async (req, res) => {
   try {
     const dutyStatus = await DutyStatus.findById(req.params.id);
     if (!dutyStatus) {
-      return res.status(404).json({ error: 'No duty status found' });
+      return res.status(404).json({ error: 'No duty status with that id was found' });
     }
     res.json(dutyStatus);
   } catch (error) {
-    res.status(404).json({ error: 'No duty status found' });
+    res.status(404).json({ error: 'No duty status with that id was found' });
   }
 });
 
@@ -65,7 +65,7 @@ router.post('/', (req, res) => {
 // @route PUT api/dutystatus/:id
 // @description Update duty status
 // @access Public
-router.put('/:id', requireRole('admin'), async (req, res) => {
+router.put('/:id', requireAdmin, async (req, res) => {
   try {
     const { startDuty, endDuty } = req.body;
 
@@ -87,7 +87,7 @@ router.put('/:id', requireRole('admin'), async (req, res) => {
 // @route DELETE api/dutystatus/:id
 // @description Delete duty status by id
 // @access Public
-router.delete('/:id', requireRole('admin'), async (req, res) => {
+router.delete('/:id', requireAdmin, async (req, res) => {
   try {
     const dutyStatus = await DutyStatus.findById(req.params.id);
     if (!dutyStatus) {

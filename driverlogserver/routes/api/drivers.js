@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const requireRole = require('../../middleware/requireRole');
 const requireAdmin = require('../../middleware/authMiddleware');
 
 // Load Driver model
@@ -28,7 +27,7 @@ router.get('/', requireAdmin, async (req, res) => {
 // @route GET api/drivers/:id
 // @description Get single driver by ID
 // @access Public
-router.get('/:id', async (req, res) => {
+router.get('/:id', requireAdmin, async (req, res) => {
   try {
     const driver = await Driver.findById(req.params.id);
     if (!driver) {
@@ -43,7 +42,7 @@ router.get('/:id', async (req, res) => {
 // @route PUT api/drivers/:id
 // @description Update driver
 // @access Public
-router.put('/:id', (req, res) => {
+router.put('/:id', requireAdmin, (req, res) => {
   Driver.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json({ msg: 'Updated successfully' });
@@ -56,7 +55,7 @@ router.put('/:id', (req, res) => {
 // @route DELETE api/drivers/:id
 // @description Delete driver by id
 // @access Public
-router.delete('/:id', requireRole('admin'), (req, res) => {
+router.delete('/:id', requireAdmin, (req, res) => {
   Driver.findByIdAndRemove(req.params.id)
     .then(() => {
       res.json({ msg: 'Driver entry deleted successfully' });
