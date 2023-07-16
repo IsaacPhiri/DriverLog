@@ -145,6 +145,54 @@ const signin = (req, res) => {
    });
 }
 
+//signin admin user
+const signinAdmin = (req, res) => {
+  let { email, password } = req.body;
+   let errors = [];
+   if (!email) {
+     errors.push({ email: "required" });
+   }
+   if (!emailRegexp.test(email)) {
+     errors.push({ email: "invalid email" });
+   }
+   if (!password) {
+     errors.push({ password: "required" });
+   }
+   if (errors.length > 0) {
+     return res.status(422).json({ errors: errors });
+   }
+
+  Admin.findOne({ email: email })
+  .then(admin => {
+    if (!admin) {
+      return res.status(404).json({
+        errors: [{ admin: "not found" }],
+      });
+    } else {
+       bcrypt.compare(password, admin.password).then(isMatch => {
+          if (!isMatch) {
+           return res.status(400).json({ errors: [{ password: "incorrect" }] });
+          }
+
+    let access_token = createJWT(admin.email, admin._id, 3600);
+    jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+         res.status(500).json({ erros: err });
+      }
+      if (decoded) {
+          return res.status(200).json({ success: true, token: access_token, message: admin });
+        }
+      });
+     }).catch(err => {
+       res.status(500).json({ erros: err });
+       console.log(err);
+     });
+   }
+}).catch(err => {
+   res.status(500).json({ erros: err });
+});
+}
+
 // Register a new admin user
 const registerAdmin = async (req, res) => {
     // Check if any admin user already exists
@@ -153,20 +201,20 @@ const registerAdmin = async (req, res) => {
       return res.status(400).json({ error: 'Admin user already exists' });
     }
     try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     // Check if the admin user already exists
-    const existingUser = await Admin.findOne({ username });
+    const existingUser = await Admin.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'Admin user already exists' });
     }
 
     // Create a new admin user
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(email, salt);
 
     const admin = new Admin({
-      username,
+      email,
       password: hashedPassword,
     });
 
@@ -183,7 +231,7 @@ const registerAdmin = async (req, res) => {
 const updateAdmin = async (req, res) => {
     try {
       const { id } = req.params;
-      const { username, password } = req.body;
+      const { email, password } = req.body;
   
       // Find the admin user by ID
       const admin = await Admin.findById(id);
@@ -192,7 +240,7 @@ const updateAdmin = async (req, res) => {
       }
   
       // Update the admin user properties
-      admin.username = username;
+      admin.email = email;
       admin.password = await bcrypt.hash(password, 10);
   
       // Save the updated admin user to the database
@@ -204,4 +252,4 @@ const updateAdmin = async (req, res) => {
     }
   }
 
-module.exports = { signup, signin, registerAdmin, updateAdmin }
+module.exports = { signup, signin, signinAdmin, registerAdmin, updateAdmin }
