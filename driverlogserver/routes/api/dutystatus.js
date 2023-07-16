@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const requireRole = require('../../middleware/requireRole');
 
 // Load DutyStatus model
 const DutyStatus = require('../../models/DutyStatus');
@@ -64,7 +65,7 @@ router.post('/', (req, res) => {
 // @route PUT api/dutystatus/:id
 // @description Update duty status
 // @access Public
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireRole('admin'), async (req, res) => {
   try {
     const { startDuty, endDuty } = req.body;
 
@@ -86,7 +87,7 @@ router.put('/:id', async (req, res) => {
 // @route DELETE api/dutystatus/:id
 // @description Delete duty status by id
 // @access Public
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireRole('admin'), async (req, res) => {
   try {
     const dutyStatus = await DutyStatus.findById(req.params.id);
     if (!dutyStatus) {
