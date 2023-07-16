@@ -126,7 +126,7 @@ const signin = (req, res) => {
               return res.status(400).json({ errors: [{ password: "incorrect" }] });
              }
 
-       let access_token = createJWT(driver.email, driver._id, 3600);
+       let access_token = createJWT(driver.email, driver._id, 3600, driver.role);
        jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
          if (err) {
             res.status(500).json({ erros: err });
@@ -174,7 +174,7 @@ const signinAdmin = (req, res) => {
            return res.status(400).json({ errors: [{ password: "incorrect" }] });
           }
 
-    let access_token = createJWT(admin.email, admin._id, 3600);
+    let access_token = createJWT(admin.email, admin._id, 3600, admin.role);
     jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
       if (err) {
          res.status(500).json({ erros: err });
@@ -211,7 +211,7 @@ const registerAdmin = async (req, res) => {
 
     // Create a new admin user
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(email, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const admin = new Admin({
       email,
