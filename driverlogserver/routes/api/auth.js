@@ -3,9 +3,10 @@ const express = require('express');
 const router = express.Router();
 
 // @route POST api/auth
-const { signup, signin, registerAdmin, updateAdmin } = require('../../controllers/AuthController');
+const { signup, signin, signinAdmin, registerAdmin, updateAdmin } = require('../../controllers/AuthController');
 router.post('/signup', signup);
 router.post('/signin', signin);
+router.post('/signinAdmin', signinAdmin);
 
 // Register a new admin user
 router.post('/register-admin', registerAdmin);
