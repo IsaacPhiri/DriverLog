@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const requireRole = require('../../middleware/requireRole');
 const requireAdmin = require('../../middleware/authMiddleware');
 
 // Load Driver model
@@ -55,7 +56,7 @@ router.put('/:id', (req, res) => {
 // @route DELETE api/drivers/:id
 // @description Delete driver by id
 // @access Public
-router.delete('/:id', (req, res) => {
+router.delete('/:id', requireRole('admin'), (req, res) => {
   Driver.findByIdAndRemove(req.params.id)
     .then(() => {
       res.json({ msg: 'Driver entry deleted successfully' });
