@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ShowDriverList = () => {
   const [drivers, setDrivers] = useState([]);
@@ -46,18 +46,27 @@ const ShowDriverList = () => {
       <thead >
         <tr>
           <th>Driver's Name</th>
-          <th>Driver's License Number</th>
+          <th>License Number</th>
           <th>National ID</th>
-		  <th>Delete</th>
-		  <th>Edit</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Home Address</th>
+          <th>License Expiry Date</th>
+          <th>Delete</th>
+		      <th>Edit</th>
+		  
         </tr>
       </thead>
       <tbody>
         {drivers.map((driver) => (
           <tr key={driver._id}>
-            <td><Link to={`/show-driver/${driver._id}`}>{driver.driverName}</Link></td>
-            <td>{driver.driverLicenseNumber}</td>
-            <td>{driver.national_ID}</td>
+            <td><Link to={`/show-driver/${driver._id}`}>{driver.firstName}  {driver.lastName}</Link></td>
+            <td>{driver.licenseNumber}</td>
+            <td>{driver.nationalId}</td>
+            <td>{driver.contactNumber}</td>
+            <td>{driver.email}</td>
+            <td>{driver.homeAddress}</td>
+            <td>{driver.licenseExpiryDate}</td>
 			<td>
 			<div >
 		  		<button

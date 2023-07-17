@@ -5,9 +5,15 @@ import { useNavigate, Link } from 'react-router-dom';
 const CreateDriver = () => {
   const navigate = useNavigate();
   const [driver, setDriver] = useState({
-    driverName: '',
-    driverLicenseNumber: '',
-    national_ID: '',
+    firstName: '',
+    lastName: '',
+    licenseNumber: '',
+    nationalId: '',
+    contactNumber: '',
+    email: '',
+    homeAddress: '',
+    licenseExpiryDate: '',
+    password: '',
   });
 
   const onChange = (e) => {
@@ -21,9 +27,16 @@ const CreateDriver = () => {
       .post('http://localhost:8082/api/drivers', driver)
       .then((res) => {
         setDriver({
-          driverName: '',
-          driverLicenseNumber: '',
-          national_ID: '',
+          firstName: '',
+          lastName: '',
+          licenseNumber: '',
+          nationalId: '',
+          contactNumber: '',
+          email: '',
+          homeAddress: '',
+          licenseExpiryDate: '',
+          password: '',
+          password_confirmation: '',
         });
 
         navigate('/');
@@ -50,21 +63,30 @@ const CreateDriver = () => {
               <div className='form-group'>
                 <input
                   type='text'
-                  placeholder='Full Name'
-                  name='driverName'
+                  placeholder='First Name'
+                  name='firstName'
                   className='form-control'
-                  value={driver.driverName}
+                  value={driver.firstName}
                   onChange={onChange}
                 />
               </div>
-
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Last Name'
+                  name='lastName'
+                  className='form-control'
+                  value={driver.lastName}
+                  onChange={onChange}
+                />
+              </div>
               <div className='form-group'>
                 <input
                   type='text'
                   placeholder='License Number'
-                  name='driverLicenseNumber'
+                  name='licenseNumber'
                   className='form-control'
-                  value={driver.driverLicenseNumber}
+                  value={driver.licenseNumber}
                   onChange={onChange}
 	               />
               </div>
@@ -72,12 +94,73 @@ const CreateDriver = () => {
                 <input
                   type='text'
                   placeholder='National ID'
-                  name='national_ID'
+                  name='nationalId'
                   className='form-control'
-                  value={driver.national_ID}
+                  value={driver.nationalId}
                   onChange={onChange}
                 />
               </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Contact Number'
+                  name='contactNumber'
+                  className='form-control'
+                  value={driver.contactNumber}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Email'
+                  name='email'
+                  className='form-control'
+                  value={driver.email}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='Home Address'
+                  name='homeAddress'
+                  className='form-control'
+                  value={driver.homeAddress}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='text'
+                  placeholder='License Expiry Date'
+                  name='licenseExpiryDate'
+                  className='form-control'
+                  value={driver.licenseExpiryDate}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='password'
+                  placeholder='Password'
+                  name='password'
+                  className='form-control'
+                  value={driver.password}
+                  onChange={onChange}
+                />
+              </div>
+              <div className='form-group'>
+                <input
+                  type='password'
+                  placeholder='Confirm Password'
+                  name='password_confirmation'
+                  className='form-control'
+                  value={driver.password_confirmation}
+                  onChange={onChange}
+                />
+              </div>
+              <br />
               <input
                 type='submit'
                 className='btn btn-outline-warning btn-block mt-4'
