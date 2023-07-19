@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const requireRole = require('../../middleware/requireRole');
+const requireAdmin = require('../../middleware/authMiddleware');
 
 // Load LogEntry model
 const LogEntry = require('../../models/LogEntry');
@@ -64,7 +64,7 @@ router.get('/:id', (req, res) => {
 // @route PUT api/log-entries/:id
 // @description Update a log entry by ID
 // @access Public
-router.put('/:id', requireRole('admin'), (req, res) => {
+router.put('/:id', requireAdmin, (req, res) => {
   LogEntry.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(logEntry => {
       if (!logEntry) {
@@ -80,7 +80,7 @@ router.put('/:id', requireRole('admin'), (req, res) => {
 // @route DELETE api/log-entries/:id
 // @description Delete a log entry by ID
 // @access Public
-router.delete('/:id', requireRole('admin'), (req, res) => {
+router.delete('/:id', requireAdmin, (req, res) => {
   LogEntry.findByIdAndRemove(req.params.id)
     .then(logEntry => {
       if (!logEntry) {

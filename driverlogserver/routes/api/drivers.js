@@ -15,7 +15,7 @@ router.get('/test', (req, res) =>
 // @route GET api/drivers
 // @description Get all drivers
 // @access Public
-router.get('/', requireAdmin, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const drivers = await Driver.find();
     res.json(drivers);
