@@ -13,7 +13,7 @@ const CreateDriver = () => {
     email: '',
     homeAddress: '',
     licenseExpiryDate: '',
-    password: '',
+    password: ''
   });
 
   const onChange = (e) => {
@@ -24,7 +24,7 @@ const CreateDriver = () => {
     e.preventDefault();
 
     axios
-      .post('http://localhost:8082/api/drivers', driver)
+      .post('http://localhost:8082/api/auth/signup', driver)
       .then((res) => {
         setDriver({
           firstName: '',
@@ -36,7 +36,7 @@ const CreateDriver = () => {
           homeAddress: '',
           licenseExpiryDate: '',
           password: '',
-          password_confirmation: '',
+          password_confirmation: ''
         });
 
         navigate('/');
@@ -160,12 +160,10 @@ const CreateDriver = () => {
                   onChange={onChange}
                 />
               </div>
-              <br />
               <input
                 type='submit'
                 className='btn btn-outline-warning btn-block mt-4'
               />
-
             </form>
           </div>
         </div>
