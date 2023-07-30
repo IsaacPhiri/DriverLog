@@ -39,7 +39,7 @@ const CreateDriver = () => {
           password_confirmation: ''
         });
 
-        navigate('/');
+        navigate('/login-driver');
       })
       .catch((err) => {
         console.log('Error in CreateDriver:', err);
@@ -50,13 +50,14 @@ const CreateDriver = () => {
   return (
     <div className='col-md-8 m-auto'>
       <br />
-      <Link to='/' className='btn btn-outline-warning float-right btn-sm'>
-              Show Driver List
-            </Link>
+      <Link to='/login-driver' className='btn btn-outline-warning float-right'>
+        Sign In
+      </Link>
+      
       <div className='col-md-10'>
         
         <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Driver</h1>
+            <h1 className='display-4 text-center'>Driver Registration</h1>
           </div>
           <div className='class="d-flex p-3"'>
             <form noValidate onSubmit={onSubmit}>
