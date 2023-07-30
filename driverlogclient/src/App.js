@@ -33,6 +33,7 @@ const useAuth = () => {
 	useEffect(() => {
 		// Check if the user is logged in by verifying the presence of the access token
 		const accessToken = localStorage.getItem('access_token');
+		console.log('accessToken:', accessToken);
     setIsLoggedIn(accessToken !== null);
   }, []);
 
@@ -41,6 +42,9 @@ const useAuth = () => {
 
 const ProtectedRoute = ({ element: Element, ...rest }) => {
 	const isLoggedIn = useAuth();
+	console.log('isLoggedIn', isLoggedIn);
+	console.log('rest', rest);
+	console.log('Element', Element);
 	console.log(localStorage.getItem('access_token'));
 	return isLoggedIn ? <Element /> : <Navigate to='/create-driver' />;
 };
