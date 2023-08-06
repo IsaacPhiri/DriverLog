@@ -1,0 +1,37 @@
+POST http://localhost:8082/api/admin/create-admin
+Content-Type: application/json
+
+{
+    "username": "admin@admin.com",
+    "password": "admin"
+}
+
+###
+GET http://localhost:8082/api/dutystatus
+
+###
+POST  http://localhost:8082/api/drivers/signup-driver
+Content-Type: application/json
+{
+  "firstName": "Isaac",
+  "lastName": "Phiri",
+  "licenseNumber": 1234567,
+  "nationalId": "123456/12/1",
+  "contactNumber": 1234567890,
+  "email": "ice@gmail.com",
+  "homeAddress": "Libala",
+  "licenseExpiryDate": "2023",
+  "password": "123456",
+  "password_confirmation": "123456"
+}
+
+###
+PUT http://localhost:8082/api/admin/64b40ca29b90196f352395f9
+Content-Type: application/json
+{
+    "username": "admin@admin.com",
+    "password": "admin"
+}
+
+###
+DELETE http://localhost:8082/api/admin/64b40ca29b90196f352395f9
