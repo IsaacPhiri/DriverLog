@@ -1,8 +1,6 @@
 POST http://localhost:8082/api/admin/create-admin
-Content-Type: application/json
-
 {
-    "username": "admin@admin.com",
+    "email": "admin@admin.com",
     "password": "admin"
 }
 
@@ -11,7 +9,6 @@ GET http://localhost:8082/api/dutystatus
 
 ###
 POST  http://localhost:8082/api/drivers/signup-driver
-Content-Type: application/json
 {
   "firstName": "Isaac",
   "lastName": "Phiri",
@@ -27,7 +24,6 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:8082/api/admin/64b40ca29b90196f352395f9
-Content-Type: application/json
 {
     "username": "admin@admin.com",
     "password": "admin"
@@ -35,3 +31,9 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8082/api/admin/64b40ca29b90196f352395f9
+
+###
+DELETE http://localhost:8082/api/drivers/64cf914bb0b971ededfd2cdf
+
+###
+DELETE http://localhost:8082/api/logentries/64a30c79f1bbad6659511d4e
