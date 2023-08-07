@@ -22,7 +22,6 @@ const CreateDriver = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post('http://localhost:8082/api/auth/signup', driver)
       .then((res) => {
