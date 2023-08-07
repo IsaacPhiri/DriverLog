@@ -15,9 +15,20 @@ const getDrivers = asyncHandler(async (req, res) => {
 
 const getDriver = asyncHandler(async (req, res) => {
     try {
-        const driver = await Driver.findById(req.params.id);
+        const driver = {
+            _id,
+            firstName,
+            lastName,
+            licenseNumber,
+            nationalId,
+            contactNumber,
+            email,
+            homeAddress,
+            licenseExpiryDate
+        } = await Driver.findById(req.user.id);
+        
         if (!driver) {
-          return res.status(404).json({ error: 'No driver found' });
+          return res.status(404).json({ error: 'No Driver found' });
         }
         res.json(driver);
       } catch (error) {

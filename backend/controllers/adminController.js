@@ -5,8 +5,7 @@ const asyncHandler = require('express-async-handler');
 // Description: Controller for admin user
 const getAdmin = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params;
-        const admin = await Admin.findById(id);
+        const admin = { _id, email } = await Admin.findById(req.user.id);
         if (!admin) {
             return res.status(404).json({ error: 'Admin user not found' });
         }
