@@ -2,15 +2,22 @@ const Trip = require('../models/Trip');
 const asyncHandler = require('express-async-handler');
 
 const getTrips = asyncHandler(async(req, res) => {
-    await Trip.find({ driver: req.user.id })
-    .populate('driver')
-    .then(trips => {
+    let query = {};
+    // Check if the user is an admin
+    if (req.user.role === 'admin') {
+        query = {}; // Empty query means all trips
+    } else {
+        query.driver = req.user.id; // Only the user's own trips
+    }
+    try {
+        const trips = await Trip.find(query)
+        .populate('driver');
         res.json(trips);
-        })
-    .catch (err => {
-        res.status(404).json({ error: 'No trips found' });
-        });
-    });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 const getTrip = asyncHandler(async (req, res) => {
     try {

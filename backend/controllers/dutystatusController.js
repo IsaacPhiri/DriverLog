@@ -2,8 +2,15 @@ const DutyStatus = require('../models/DutyStatus');
 const asyncHandler = require('express-async-handler');
 
 const getDutyStatuses = asyncHandler(async(req, res) => {
+    let query = {};
+    // Check if the user is an admin
+    if (req.user.role === 'admin') {
+        query = {}; // Empty query means all trips
+    } else {
+        query.driver = req.user.id; // Only the user's own trips
+    }
     try {
-        const dutyStatuses = await DutyStatus.find({ driver: req.user.id })
+        const dutyStatuses = await DutyStatus.find(query)
         .populate('driver');
         res.json(dutyStatuses);
     } catch (err) {

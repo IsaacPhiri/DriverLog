@@ -4,8 +4,15 @@ const Trip = require('../models/Trip');
 const asyncHandler = require('express-async-handler');
 
 const getLogEntries = asyncHandler(async(req, res) => {
+    let query = {};
+    // Check if the user is an admin
+    if (req.user.role === 'admin') {
+        query = {}; // Empty query means all trips
+    } else {
+        query.driver = req.user.id; // Only the user's own trips
+    }
     try {
-        const logEntries = await LogEntry.find({ driver: req.user.id })
+        const logEntries = await LogEntry.find(query)
         .populate('driver')
         .populate('vehicle')
         .populate('trip');
