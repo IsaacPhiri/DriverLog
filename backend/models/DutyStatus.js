@@ -14,32 +14,32 @@ const DutyStatusSchema = new mongoose.Schema({
 	},
     driver: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Driver',
-        required: true
+        required: true,
+        ref: 'Driver'
     }
 }, { timestamps: true
 });
 
-// Calculate the working hours when startDuty or endDuty is modified
-DutyStatusSchema.pre('save', function(next) {
-  if (this.isModified('startDuty') || this.isModified('endDuty')) {
-    const start = this.startDuty.getTime();
-    const end = this.endDuty ? this.endDuty.getTime() : Date.now();
-    const workingHours = Math.abs(end - start) / 36e5; // Divide by 36e5 to convert milliseconds to hours
-    this.totalWorkingHours = workingHours;
-  }
-  next();
+// Calculate total working hours
+DutyStatusSchema.pre('save', async function (next) {
+    const dutystatus = this;
+    if (dutystatus.isModified('startDuty') || dutystatus.isModified('endDuty')) {
+        const timeDifference = dutystatus.endDuty - dutystatus.startDuty;
+        dutystatus.totalWorkingHours = timeDifference / (1000 * 60 * 60); // Convert milliseconds to hours
+    }
+    next();
 });
 
-// Calculate the working hours when endDuty is updated directly
-DutyStatusSchema.pre('findOneAndUpdate', function(next) {
-  if (this._update.endDuty) {
-    const start = this._update.startDuty.getTime();
-    const end = this._update.endDuty.getTime();
-    const workingHours = Math.abs(end - start) / 36e5;
-    this._update.totalWorkingHours = workingHours;
-  }
-  next();
+DutyStatusSchema.pre('findOneAndUpdate', async function (next) {
+    const query = this; // `this` is the query object
+    const originalDocument = await query.model.findOne(query.getQuery());
+
+    if (originalDocument) {
+        const timeDifference = originalDocument.endDuty - originalDocument.startDuty;
+        query._update.totalWorkingHours = timeDifference / (1000 * 60 * 60); // Convert milliseconds to hours
+    }
+    
+    next();
 });
 
 const DutyStatus = mongoose.model('DutyStatus', DutyStatusSchema);
