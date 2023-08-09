@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const DutyStatus = require('../../models/DutyStatus');
 const { getDutyStatuses, getDutyStatus, createDutyStatus, updateDutyStatus, deleteDutyStatus } = require('../../controllers/dutystatusController');
+const protect = require('../../middleware/authMiddleware');
 
-router.route('/').get(getDutyStatuses).post(createDutyStatus);
-router.route('/:id').get(getDutyStatus).put(updateDutyStatus).delete(deleteDutyStatus);
+router.route('/').get(protect, getDutyStatuses).post(protect, createDutyStatus);
+router.route('/:id').get(protect, getDutyStatus).put(protect, updateDutyStatus).delete(protect, deleteDutyStatus);
 
 module.exports = router;
