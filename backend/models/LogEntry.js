@@ -17,7 +17,8 @@ const LogEntrySchema = new mongoose.Schema({
 	},
 	trip: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Trip'
+		ref: 'Trip',
+		required: true
 	},
 	comments: {
 		type: String,
