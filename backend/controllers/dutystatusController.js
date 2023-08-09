@@ -1,27 +1,24 @@
 const DutyStatus = require('../models/DutyStatus');
-const Driver = require('../models/Driver');
 const asyncHandler = require('express-async-handler');
 
 const getDutyStatuses = asyncHandler(async(req, res) => {
-    await DutyStatus.find()
-      .populate('driver')
-      .then(DutyStatus => {
-        res.json(DutyStatus);
-      })
-    .catch (err => {
-      res.status(404).json({ error: 'No duty statuses found' });
-    });
-  });
+    try {
+        const dutyStatuses = await DutyStatus.find({ driver: req.user.id })
+        .populate('driver');
+        res.json(dutyStatuses);
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 const getDutyStatus = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params;
-        const dutyStatus = await DutyStatus.findById(id).populate('driver');
+        const dutyStatus = await DutyStatus.findById(req.params.id)
+        .populate('driver');
         if (!dutyStatus) {
-            res.status(404).json({ error: 'No duty status found' });
-        } else {
-            res.json(dutyStatus);
+            return res.status(404).json({ error: 'No duty status found' });
         }
+        res.json(dutyStatus);
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -29,19 +26,17 @@ const getDutyStatus = asyncHandler(async (req, res) => {
 
 const createDutyStatus = asyncHandler(async (req, res) => {
     try {
-        const { startDuty, endDuty, totalWorkingHours, driver } = req.body;
-        const existingDriver = await Driver.findById(driver);
-        if (!existingDriver) {
-            return res.status(400).json({ error: 'Driver not found' });
+        if (!req.body.startDuty || !req.body.endDuty) {
+            return res.status(400).json({ error: 'Please fill in all fields' });
         }
-        const dutyStatus = new DutyStatus({
-            startDuty,
-            endDuty,
-            totalWorkingHours,
-            driver
+        const newDutyStatus = new DutyStatus({
+            startDuty: req.body.startDuty,
+            endDuty: req.body.endDuty,
+            totalWorkingHours: req.body.totalWorkingHours,
+            driver: req.user.id
         });
-        const createdDutyStatus = await dutyStatus.save();
-        res.status(201).json(createdDutyStatus);
+        const dutyStatus = await newDutyStatus.save();
+        res.status(201).json(dutyStatus);
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -49,35 +44,55 @@ const createDutyStatus = asyncHandler(async (req, res) => {
 
 const updateDutyStatus = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params;
-        const { startDuty, endDuty, totalWorkingHours, driver } = req.body;
-        const existingDriver = await Driver.findById(driver);
-        if (!existingDriver) {
-            return res.status(400).json({ error: 'Driver not found' });
-        }
-        const dutyStatus = await DutyStatus.findById(id);
-        if (!dutyStatus) {
+        const dutystatus = await DutyStatus.findById(req.params.id);
+        if (!dutystatus) {
             return res.status(404).json({ error: 'No duty status found' });
         }
-        dutyStatus.startDuty = startDuty || dutyStatus.startDuty;
-        dutyStatus.endDuty = endDuty || dutyStatus.endDuty;
-        dutyStatus.totalWorkingHours = totalWorkingHours || dutyStatus.totalWorkingHours;
-        dutyStatus.driver = driver || dutyStatus.driver;
-        const updatedDutyStatus = await dutyStatus.save();
-        res.json(updatedDutyStatus);
+        if (!req.user) {
+            return res.status(404).json({ error: 'No user found' });
+        }
+        if (dutystatus.driver?.toString() !== req.user.id) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        const updatedDutystatus = await DutyStatus.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+
+        if (!updatedDutystatus) {
+            return res.status(404).json({ error: 'No duty status found' });
+        }
+
+        res.status(200).json(updatedDutystatus);
     } catch (err) {
+        console.log(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 const deleteDutyStatus = asyncHandler(async (req, res) => {
-    await DutyStatus.findByIdAndRemove(req.params.id)
-        .then(dutyStatus => {
-            return res.json({ message: 'Duty status deleted successfully' });
-        })
-        .catch(err => {
-            res.status(400).json({ error: 'Unable to delete duty status' });
-        });
+    try {
+        const dutyStatus = await DutyStatus.findById(req.params.id);
+    if (!dutyStatus) {
+        return res.status(404).json({ error: 'No duty status found' });
+    }
+    if (!req.user) {
+        return res.status(404).json({ error: 'No user found' });
+    }
+
+    // Check if the user is the owner of the duty status
+    if (dutyStatus.driver?.toString() !== req.user.id) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    await DutyStatus.findByIdAndRemove(req.params.id);
+    res.status(200).json({ message: 'Duty status removed'
+    });
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 module.exports = {

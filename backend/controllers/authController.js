@@ -36,7 +36,7 @@ const signinDriver = asyncHandler(async (req, res) => {
               return res.status(400).json({ errors: [{ password: "incorrect" }] });
              }
 
-       let access_token = createJWT(driver.email, driver._id, 3600, driver.role);
+       let access_token = createJWT(driver.email, driver._id, '30d', driver.role);
        jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
          if (err) {
             res.status(500).json({ erros: err });
@@ -83,7 +83,7 @@ const signinAdmin = asyncHandler(async (req, res) => {
            return res.status(400).json({ errors: [{ password: "incorrect" }] });
           }
 
-    let access_token = createJWT(admin.email, admin._id, 3600, admin.role);
+    let access_token = createJWT(admin.email, admin._id, '30d', admin.role);
     jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
       if (err) {
          res.status(500).json({ erros: err });

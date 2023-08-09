@@ -4,6 +4,18 @@ const asyncHandler = require('express-async-handler');
 
 const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
+const getDriver = asyncHandler(async (req, res) => {
+    try {
+        const driver = await Driver.findById(req.params.id);
+        if (!driver) {
+            return res.status(404).json({ error: 'Driver not found' });
+        }
+        res.json(driver);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 const getDrivers = asyncHandler(async (req, res) => {
     try {
         const drivers = await Driver.find();
@@ -13,7 +25,7 @@ const getDrivers = asyncHandler(async (req, res) => {
       }
     });
 
-const getDriver = asyncHandler(async (req, res) => {
+const getDriverProfile = asyncHandler(async (req, res) => {
     try {
         const driver = {
             _id,
@@ -26,7 +38,7 @@ const getDriver = asyncHandler(async (req, res) => {
             homeAddress,
             licenseExpiryDate
         } = await Driver.findById(req.user.id);
-        
+
         if (!driver) {
           return res.status(404).json({ error: 'No Driver found' });
         }
@@ -186,6 +198,7 @@ const deleteDriver = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+    getDriverProfile,
     getDriver,
     getDrivers,
     createDriver,

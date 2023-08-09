@@ -1,49 +1,47 @@
 const Trip = require('../models/Trip');
-const Driver = require('../models/Driver');
 const asyncHandler = require('express-async-handler');
 
 const getTrips = asyncHandler(async(req, res) => {
-    await Trip.find()
+    await Trip.find({ driver: req.user.id })
     .populate('driver')
-      .then(trips => {
+    .then(trips => {
         res.json(trips);
-      })
-    .catch (err => {
-      res.status(404).json({ error: 'No trips found' });
-    });
-  });
-
-const getTrip = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    await Trip.findById(id)
-    .populate('driver')
-    .then(trip => {
-        res.json(trip);
         })
     .catch (err => {
-        res.status(404).json({ error: 'No trip found' });
+        res.status(404).json({ error: 'No trips found' });
         });
     });
+
+const getTrip = asyncHandler(async (req, res) => {
+    try {
+        const trip = await Trip.findById(req.params.id)
+        .populate('driver');
+        if (!trip) {
+            return res.status(404).json({ error: 'No trip found' });
+        }
+        res.json(trip);
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 const createTrip = asyncHandler(async (req, res) => {
     try {
-        const { origin, destination, startMileage, endMileage, purpose, distance, totalMileage, driver } = req.body;
-        const existingDriver = await Driver.findById(driver);
-        if (!existingDriver) {
-            return res.status(400).json({ error: 'Driver not found' });
+        if (!req.body.origin || !req.body.destination || !req.body.startMileage || !req.body.endMileage || !req.body.purpose) {
+            return res.status(400).json({ error: 'Please fill in all fields' });
         }
-        const trip = new Trip({
-            origin,
-            destination,
-            startMileage,
-            endMileage,
-            purpose,
-            distance,
-            totalMileage,
-            driver
+        const newTrip = new Trip({
+            origin: req.body.origin,
+            destination: req.body.destination,
+            startMileage: req.body.startMileage,
+            endMileage: req.body.endMileage,
+            purpose: req.body.purpose,
+            distance: req.body.distance,
+            totalMileage: req.body.totalMileage,
+            driver: req.user.id
         });
-        const createdTrip = await trip.save();
-        res.status(201).json(createdTrip);
+        const trip = await newTrip.save();
+        res.status(201).json(trip);
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -51,44 +49,44 @@ const createTrip = asyncHandler(async (req, res) => {
 
 const updateTrip = asyncHandler(async (req, res) => {
     try {
-        const { id } = req.params;
-        const { startLocation, endLocation, distance, driver } = req.body;
-        const existingDriver = await Driver.findById(driver);
-        if (!existingDriver) {
-            return res.status(400).json({ error: 'Driver not found' });
-        }
-        const trip = await Trip.findById(id);
+        const trip = await Trip.findById(req.params.id);
         if (!trip) {
             return res.status(404).json({ error: 'No trip found' });
         }
-        trip.startLocation = startLocation || trip.startLocation;
-        trip.endLocation = endLocation || trip.endLocation;
-        trip.distance = distance || trip.distance;
-        trip.driver = driver || trip.driver;
-        const updatedTrip = await trip.save();
-        res.json({
-            _id: updatedTrip._id,
-            startLocation: updatedTrip.startLocation,
-            endLocation: updatedTrip.endLocation,
-            distance: updatedTrip.distance,
-            driver: updatedTrip.driver
-        });
-    } catch (error) {
+        if (!req.user) {
+            return res.status(404).json({ error: 'No user found' });
+        }
+        if (trip.driver?.toString() !== req.user.id) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        const updateTrip = await Trip.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        res.json(updateTrip, { message: 'Trip updated' });
+    } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 const deleteTrip = asyncHandler(async (req, res) => {
-    await Trip.findByIdAndRemove(req.params.id)
-        .then(trip => {
-            if (!trip) {
-                return res.status(404).json({ error: 'Trip not found' });
-            }
-            res.json({ message: 'Trip deleted successfully' });
-        })
-        .catch(err => {
-            res.status(400).json({ error: 'Unable to delete trip' });
-        });
+    try {
+        const trip = await Trip.findById(req.params.id);
+        if (!trip) {
+            return res.status(404).json({ error: 'No trip found' });
+        }
+        if (!req.user) {
+            return res.status(404).json({ error: 'No user found' });
+        }
+        if (trip.driver?.toString() !== req.user.id) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        await Trip.findByIdAndRemove(req.params.id);
+        res.json({ message: 'Trip removed' });
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 module.exports = {

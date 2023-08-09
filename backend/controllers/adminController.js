@@ -5,6 +5,18 @@ const asyncHandler = require('express-async-handler');
 // Description: Controller for admin user
 const getAdmin = asyncHandler(async (req, res) => {
     try {
+        const admin = await Admin.findById(req.params.id);
+        if (!admin) {
+            return res.status(404).json({ error: 'Admin user not found' });
+        }
+        res.json(admin);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+const getAdminProfile = asyncHandler(async (req, res) => {
+    try {
         const admin = { _id, email } = await Admin.findById(req.user.id);
         if (!admin) {
             return res.status(404).json({ error: 'Admin user not found' });
@@ -94,6 +106,7 @@ const deleteAdmin = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+    getAdminProfile,
     getAdmin,
     getAdmins,
     createAdmin,
