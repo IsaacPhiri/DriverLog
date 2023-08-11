@@ -3,14 +3,19 @@ import {FaUser} from 'react-icons/fa'
 
 function Register() {
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
+    licenseNumber: '',
+    nationalId: '',
+    contactNumber: '',
     email: '',
+    homeAddress: '',
+    licenseExpiryDate: '',
     password: '',
-    passwordConfirm: ''
+    password_confirmation: ''
   })
 
-const {firstname, lastname, email, password, passwordConfirm} = formData
+const { firstName, lastName, licenseNumber, nationalId, contactNumber, email, homeAddress, licenseExpiryDate, password, password_confirmation} = formData
 
 const onChange = (e) => {
   setFormData((prevState) => ({
@@ -38,10 +43,10 @@ return (
           <input 
           type="text" 
           className='form-control'
-          id='firstname'
+          id='firstName'
           placeholder="Enter Your First Name" 
-          name="firstname" 
-          value={firstname} 
+          name="firstName" 
+          value={firstName} 
           onChange={onChange} 
           />
         </div>
@@ -49,10 +54,43 @@ return (
           <input
           type="text"
           className='form-control'
-          id='lastname'
+          id='lastName'
           placeholder="Enter Your Last Name"
-          name="lastname"
-          value={lastname}
+          name="lastName"
+          value={lastName}
+          onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <input
+          type="text"
+          className='form-control'
+          id='licenseNumber'
+          placeholder="Enter Your License Number"
+          name="licenseNumber"
+          value={licenseNumber}
+          onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <input
+          type="text"
+          className='form-control'
+          id='nationalId'
+          placeholder="Enter Your National ID"
+          name="nationalId"
+          value={nationalId}
+          onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <input
+          type="text"
+          className='form-control'
+          id='contactNumber'
+          placeholder="Enter Your Contact Number"
+          name="contactNumber"
+          value={contactNumber}
           onChange={onChange}
           />
         </div>
@@ -64,6 +102,28 @@ return (
           placeholder="Enter Your Email"
           name="email"
           value={email}
+          onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <input
+          type="text"
+          className='form-control'
+          id='homeAddress'
+          placeholder="Enter Your Home Address"
+          name="homeAddress"
+          value={homeAddress}
+          onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <input
+          type="date"
+          className='form-control'
+          id='licenseExpiryDate'
+          placeholder="Enter Your License Expiry Date"
+          name="licenseExpiryDate"
+          value={licenseExpiryDate}
           onChange={onChange}
           />
         </div>
@@ -82,10 +142,10 @@ return (
           <input
           type="password"
           className='form-control'
-          id='passwordConfirm'
+          id='password_confirmation'
           placeholder="Confirm Your Password"
-          name="passwordConfirm"
-          value={passwordConfirm}
+          name="password_confirmation"
+          value={password_confirmation}
           onChange={onChange}
           />
         </div>
