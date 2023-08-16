@@ -1,7 +1,6 @@
-import React from 'react';
 import { useState } from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 
 const LoginScreen = () => {
