@@ -26,9 +26,9 @@ const DriverSchema = new mongoose.Schema({
 		required: true,
 		validate: {
 			validator: function (value) {
-			  	return /^\d{10}$/.test(value);
-			},
-			message: 'Contact number must be 10 digits.',
+				return /^0\d{9}$/.test(value);
+            },
+            message: 'Contact number must be in the format 0977123456.',
 		},
 	},
 	email: {
