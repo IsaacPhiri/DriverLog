@@ -5,7 +5,7 @@ const protect = require('../../middleware/authMiddleware');
 
 router.get('/', protect, getDrivers);
 router.post('/signup-driver', createDriver);
-router.route('/:id').get(protect, getDriver).put(protect, updateDriver).delete(protect, deleteDriver);
 router.get('/me', protect, getDriverProfile);
+router.route('/:id').get(protect, getDriver).put(protect, updateDriver).delete(protect, deleteDriver);
 
 module.exports = router;
