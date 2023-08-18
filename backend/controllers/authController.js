@@ -42,7 +42,7 @@ const signinDriver = asyncHandler(async (req, res) => {
             res.status(500).json({ erros: err });
          }
          if (decoded) {
-             return res.status(200).json({ success: true, token: access_token, message: driver });
+             return res.status(200).json( driver );
            }
          });
         }).catch(err => {
