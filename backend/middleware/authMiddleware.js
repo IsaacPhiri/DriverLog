@@ -9,7 +9,6 @@ const protect = asyncHandler(async (req, res, next) => {
   try {
     // Get the access token from the cookie
     const token = req.cookies.token;
-    console.log(token);
 
     if (!token) {
       return res.status(401).json({ error: 'Not Authorized: No access tokens' });

@@ -44,7 +44,7 @@ const getDriverProfile = asyncHandler(async (req, res) => {
         }
         res.json(driver);
       } catch (error) {
-        res.status(404).json({ error: 'No driver found' });
+        throw new Error('Internal server error');
       }
     });
 

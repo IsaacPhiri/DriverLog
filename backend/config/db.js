@@ -8,7 +8,7 @@ const connectDB = async () => {
 			useNewUrlParser: true,
 		});
 
-		console.log(`MongoDB is Connected on port ${ process.env.PORT }`.cyan.underline.bold);
+		console.log(`MongoDB is Connected`.cyan.underline.bold);
 	} catch (err) {
 		console.error(err.message);
 		process.exit(1);

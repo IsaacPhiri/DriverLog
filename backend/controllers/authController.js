@@ -36,8 +36,12 @@ const signinDriver = asyncHandler(async (req, res) => {
               return res.status(400).json({ errors: [{ password: "incorrect" }] });
              }
 
-       createJWT(res, driver.email, driver._id, '30d', driver.role);
-       return res.status(200).json({ success: true, message: driver });
+       createJWT(res, driver.email, driver._id, driver.role);
+       return res.status(200).json({
+        _id: driver._id,
+        email: driver.email,
+        role: driver.role,
+       });
         }).catch(err => {
           res.status(500);
           throw new Error('Internal server error');
@@ -87,8 +91,12 @@ const signinAdmin = asyncHandler(async (req, res) => {
            return res.status(400).json({ errors: [{ password: "incorrect" }] });
           }
 
-    createJWT(res, admin.email, admin._id, '30d', admin.role);
-    return res.status(200).json({ success: true, message: admin });
+    createJWT(res, admin.email, admin._id, admin.role);
+    return res.status(200).json({
+      _id: admin._id,
+      email: admin.email,
+      role: admin.role,
+    });
      }).catch(err => {
        res.status(500).json({ erros: err });
        console.log(err);
