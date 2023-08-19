@@ -12,7 +12,8 @@ const getDriver = asyncHandler(async (req, res) => {
         }
         res.json(driver);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -21,7 +22,8 @@ const getDrivers = asyncHandler(async (req, res) => {
         const drivers = await Driver.find();
         res.json(drivers);
       } catch (error) {
-        res.status(404).json({ error: 'No drivers found' });
+        res.status(404);
+        throw new Error('Drivers not found');
       }
     });
 
@@ -40,7 +42,8 @@ const getDriverProfile = asyncHandler(async (req, res) => {
         } = await Driver.findById(req.user.id);
 
         if (!driver) {
-          return res.status(404).json({ error: 'No Driver found' });
+          return res.status(404);
+          throw new Error('Driver not found');
         }
         res.json(driver);
       } catch (error) {
@@ -126,10 +129,8 @@ const createDriver = asyncHandler(async (req, res) => {
             res.status(200).json({ success: true, result: response });
         }
     } catch (err) {
-        res.status(500).json({
-            errors: [{ error: 'Something went wrong' }]
-        });
-        console.log(err);
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });    
 
@@ -180,7 +181,8 @@ const updateDriver = asyncHandler(async (req, res) => {
         password_confirmation: updatedDriver.password_confirmation
       });
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500);
+      throw new Error('Internal server error');
     }
   });
 
@@ -193,7 +195,7 @@ const deleteDriver = asyncHandler(async (req, res) => {
             res.json({ success: true, result: driver, message: "Driver deleted successfully" });
         })
         .catch(err => {
-            return res.status(400).json({ error: err });
+            return res.status(500).json({ error: err.message });
         });
 });
 

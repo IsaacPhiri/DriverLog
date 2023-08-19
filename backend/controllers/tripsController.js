@@ -15,7 +15,8 @@ const getTrips = asyncHandler(async(req, res) => {
         res.json(trips);
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -28,7 +29,8 @@ const getTrip = asyncHandler(async (req, res) => {
         }
         res.json(trip);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -50,7 +52,8 @@ const createTrip = asyncHandler(async (req, res) => {
         const trip = await newTrip.save();
         res.status(201).json(trip);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -73,7 +76,8 @@ const updateTrip = asyncHandler(async (req, res) => {
         );
         res.json(updateTrip, { message: 'Trip updated' });
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -92,7 +96,8 @@ const deleteTrip = asyncHandler(async (req, res) => {
         await Trip.findByIdAndRemove(req.params.id);
         res.json({ message: 'Trip removed' });
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 

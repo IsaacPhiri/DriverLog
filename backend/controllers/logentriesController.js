@@ -19,7 +19,8 @@ const getLogEntries = asyncHandler(async(req, res) => {
         res.json(logEntries);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -35,7 +36,8 @@ const getLogEntry = asyncHandler(async (req, res) => {
             res.json(logEntry);
         }
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -60,7 +62,8 @@ const createLogEntry = asyncHandler(async (req, res) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: 'Internal server error' });
+            res.status(500);
+            throw new Error('Internal server error');
         });
 
         await Trip.findById(req.body.trip)
@@ -72,14 +75,16 @@ const createLogEntry = asyncHandler(async (req, res) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: 'Internal server error' });
+            res.status(500);
+            throw new Error('Internal server error');
         });
 
         const logEntry = await newLogEntry.save();
         res.status(201).json(logEntry);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -102,7 +107,8 @@ const updateLogEntry = asyncHandler(async (req, res) => {
         );
         res.json(updateLogEntry);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -121,7 +127,8 @@ const deleteLogEntry = asyncHandler(async (req, res) => {
         await LogEntry.findByIdAndRemove(req.params.id);
         res.json({ message: 'Log entry removed' });
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 

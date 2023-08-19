@@ -14,7 +14,8 @@ const getDutyStatuses = asyncHandler(async(req, res) => {
         .populate('driver');
         res.json(dutyStatuses);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -27,7 +28,8 @@ const getDutyStatus = asyncHandler(async (req, res) => {
         }
         res.json(dutyStatus);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -45,7 +47,8 @@ const createDutyStatus = asyncHandler(async (req, res) => {
         const dutyStatus = await newDutyStatus.save();
         res.status(201).json(dutyStatus);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -75,7 +78,8 @@ const updateDutyStatus = asyncHandler(async (req, res) => {
         res.status(200).json(updatedDutystatus);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -98,7 +102,8 @@ const deleteDutyStatus = asyncHandler(async (req, res) => {
     res.status(200).json({ message: 'Duty status removed'
     });
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 

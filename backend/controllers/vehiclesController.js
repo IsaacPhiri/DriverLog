@@ -7,7 +7,8 @@ const getVehicles = asyncHandler(async(req, res) => {
         res.json(vehicles);
       })
     .catch (err => {
-      res.status(404).json({ error: 'No vehicles found' });
+        res.status(404);
+        throw new Error('Vehicles not found');
     });
   });
 
@@ -21,7 +22,8 @@ const getVehicle = asyncHandler(async (req, res) => {
             res.json(vehicle);
         }
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -36,7 +38,8 @@ const createVehicle = asyncHandler(async (req, res) => {
         const createdVehicle = await vehicle.save();
         res.status(201).json(createdVehicle);
     } catch (err) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -59,7 +62,8 @@ const updateVehicle = asyncHandler(async (req, res) => {
             licensePlate: updatedVehicle.licensePlate
         });
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -72,7 +76,8 @@ const deleteVehicle = asyncHandler(async (req, res) => {
         res.json({ msg: 'Vehicle deleted successfully' });
       })
       .catch(err => {
-        res.status(400).json({ error: 'Unable to delete vehicle' });
+        res.status(400);
+        throw new Error('Could not delete vehicle');
       });
   });
 

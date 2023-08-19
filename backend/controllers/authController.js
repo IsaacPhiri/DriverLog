@@ -47,18 +47,23 @@ const signinDriver = asyncHandler(async (req, res) => {
           throw new Error('Internal server error');
         });
       }
-   }).catch(err => {
-      res.status(500).throw(new Error('Internal server error'));
-   });
+    }).catch(err => {
+      res.status(500);
+      throw(new Error('Internal server error'));
+    });
 });
 
 // Logout driver
-const logoutDriver = asyncHandler(async (req, res) => {
+const logout = asyncHandler(async (req, res) => {
   try {
-    localStorage.removeItem('userInfo');
-    return res.status(200).json({ success: true, message: 'Logged out successfully' });
+    res.cookie('token', '', {
+      httpOnly: true,
+      expires: new Date(0)
+    })
+    res.status(200).json({ success: true, message: 'User Logged out' });
   } catch (err) {
-    return res.status(500).json({ success: false, message: 'Something went wrong' });
+    res.status(500);
+    throw(new Error('Internal server error'));
   }
 }
 );
@@ -103,12 +108,13 @@ const signinAdmin = asyncHandler(async (req, res) => {
      });
    }
 }).catch(err => {
-   res.status(500).throw(new Error('Internal server error'));
+   res.status(500);
+   throw(new Error('Internal server error'));
 });
 });
 
 module.exports = {
     signinDriver,
     signinAdmin,
-    logoutDriver
+    logout
 };
