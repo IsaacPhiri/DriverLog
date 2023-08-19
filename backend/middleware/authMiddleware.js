@@ -7,18 +7,14 @@ require('dotenv').config();
 // Protect routes from unauthorized access
 const protect = asyncHandler(async (req, res, next) => {
   try {
-    // Get the access token from the request headers
-    const authorizationHeader = req.headers.authorization;
-    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'Access token missing or invalid format' });
-    }
+    // Get the access token from the cookie
+    const token = req.cookies.token;
+    console.log(token);
 
-    // Extract the token from the 'Authorization' header
-    const token = authorizationHeader.split(' ')[1];
     if (!token) {
-      return res.status(401).json({ error: 'Access token missing' });
+      return res.status(401).json({ error: 'Not Authorized: No access tokens' });
     }
-
+    
     // Verify the access token and extract the payload
     const payload = jwt.verify(token, process.env.TOKEN_SECRET);
 

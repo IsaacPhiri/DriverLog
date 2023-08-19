@@ -7,11 +7,12 @@ const getAdmin = asyncHandler(async (req, res) => {
     try {
         const admin = await Admin.findById(req.params.id);
         if (!admin) {
-            return res.status(404).json({ error: 'Admin user not found' });
+            return res.status(404).throw(new Error('Admin user not found'));
         }
         res.json(admin);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -19,11 +20,12 @@ const getAdminProfile = asyncHandler(async (req, res) => {
     try {
         const admin = { _id, email } = await Admin.findById(req.user.id);
         if (!admin) {
-            return res.status(404).json({ error: 'Admin user not found' });
+            return res.status(404).throw(new Error('Admin user not found'));
         }
         res.json(admin);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -32,7 +34,8 @@ const getAdmins = asyncHandler(async (req, res) => {
         const admins = await Admin.find();
         res.json(admins);
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500);
+        throw new Error('Internal server error');
     }
 });
 
@@ -64,7 +67,8 @@ const createAdmin = asyncHandler(async (req, res) => {
     res.status(201).json(createdAdmin);
   }
 } catch (error) {
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500);
+  throw new Error('Internal server error');
 }
 });
 
@@ -76,7 +80,7 @@ const updateAdmin = asyncHandler(async (req, res) => {
       // Find the admin user by ID
       const admin = await Admin.findById(id);
       if (!admin) {
-        return res.status(404).json({ error: 'Admin user not found' });
+        return res.status(404).throw(new Error('Admin user not found'));
       }
   
       // Update the admin user properties
@@ -88,7 +92,8 @@ const updateAdmin = asyncHandler(async (req, res) => {
   
       res.json({ message: 'Admin user updated successfully' });
     } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500);
+      throw new Error('Internal server error');
     }
   });
 
@@ -96,12 +101,13 @@ const deleteAdmin = asyncHandler(async (req, res) => {
     await Admin.findByIdAndRemove(req.params.id)
         .then(admin => {
             if (!admin) {
-              return res.status(404).json({ error: 'Admin user not found' });
+              return res.status(404).throw(new Error('Admin user not found'));
             }
             res.json({ message: 'Admin user deleted successfully' });
         })
         .catch(err => {
-            res.status(400).json({ error: 'Unable to delete admin user' });
+            res.status(400);
+            throw new Error('Internal server error');
         });
 });
 

@@ -36,24 +36,28 @@ const signinDriver = asyncHandler(async (req, res) => {
               return res.status(400).json({ errors: [{ password: "incorrect" }] });
              }
 
-       let access_token = createJWT(driver.email, driver._id, '30d', driver.role);
-       jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
-         if (err) {
-            res.status(500).json({ erros: err });
-         }
-         if (decoded) {
-             return res.status(200).json( driver );
-           }
-         });
+       createJWT(res, driver.email, driver._id, '30d', driver.role);
+       return res.status(200).json({ success: true, message: driver });
         }).catch(err => {
-          res.status(500).json({ erros: err });
-          console.log(err);
+          res.status(500);
+          throw new Error('Internal server error');
         });
       }
    }).catch(err => {
-      res.status(500).json({ erros: err });
+      res.status(500).throw(new Error('Internal server error'));
    });
 });
+
+// Logout driver
+const logoutDriver = asyncHandler(async (req, res) => {
+  try {
+    localStorage.removeItem('userInfo');
+    return res.status(200).json({ success: true, message: 'Logged out successfully' });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: 'Something went wrong' });
+  }
+}
+);
 
 const signinAdmin = asyncHandler(async (req, res) => {
     let { email, password } = req.body;
@@ -83,26 +87,20 @@ const signinAdmin = asyncHandler(async (req, res) => {
            return res.status(400).json({ errors: [{ password: "incorrect" }] });
           }
 
-    let access_token = createJWT(admin.email, admin._id, '30d', admin.role);
-    jwt.verify(access_token, process.env.TOKEN_SECRET, (err, decoded) => {
-      if (err) {
-         res.status(500).json({ erros: err });
-      }
-      if (decoded) {
-          return res.status(200).json({ success: true, token: access_token, message: admin });
-        }
-      });
+    createJWT(res, admin.email, admin._id, '30d', admin.role);
+    return res.status(200).json({ success: true, message: admin });
      }).catch(err => {
        res.status(500).json({ erros: err });
        console.log(err);
      });
    }
 }).catch(err => {
-   res.status(500).json({ erros: err });
+   res.status(500).throw(new Error('Internal server error'));
 });
 });
 
 module.exports = {
     signinDriver,
-    signinAdmin
+    signinAdmin,
+    logoutDriver
 };

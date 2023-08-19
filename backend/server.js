@@ -2,7 +2,8 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const colors = require('colors');
-require('dotenv').config();
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const cookieParser = require('cookie-parser');
 
 // routes
 const driversRoutes = require('./routes/api/drivers');
@@ -14,6 +15,7 @@ const authRoutes = require('./routes/api/auth');
 const adminRoutes = require('./routes/api/admin');
 
 const app = express();
+app.use(cookieParser());
 
 // Connect DB
 connectDB();
@@ -38,6 +40,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 
 const port = process.env.PORT || 5000;
+
+// Error handling middleware
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () =>
 	console.log(`Server running on port ${port}`)
