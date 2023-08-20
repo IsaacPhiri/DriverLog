@@ -23,11 +23,16 @@ const signinDriver = asyncHandler(async (req, res) => {
       createJWT(res, driver.email, driver._id, driver.role);
 
       return res.status(200).json({
-          _id: driver._id,
-          firstName: driver.firstName,
-          lastName: driver.lastName,
-          email: driver.email,
-          role: driver.role,
+        _id: driver._id,
+        firstName: driver.firstName,
+        lastName: driver.lastName,
+        licenseNumber: driver.licenseNumber,
+        nationalId: driver.nationalId,
+        contactNumber: driver.contactNumber,
+        email: driver.email,
+        homeAddress: driver.homeAddress,
+        licenseExpiryDate: driver.licenseExpiryDate,
+        role: driver.role,
       });
   } catch (err) {
       throw new Error(err.message);
