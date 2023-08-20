@@ -149,9 +149,14 @@ const createDriver = asyncHandler(async (req, res) => {
 });    
 
 const updateDriver = asyncHandler(async (req, res) => {
+    const driver = await Driver.findById(req.params.id);
+    console.log(driver); // still working here
+    if (!driver) {
+      res.status(404);
+      throw new Error('Driver not found');
+    }
     try {
-      const { id } = req.params;
-      const { firstName,
+      const driver = { firstName,
         lastName,
         licenseNumber,
         nationalId,
@@ -161,12 +166,6 @@ const updateDriver = asyncHandler(async (req, res) => {
         licenseExpiryDate,
         password,
         password_confirmation } = req.body;
-  
-      const driver = await Driver.findById(id);
-  
-      if (!driver) {
-        return res.status(404).json({ error: 'No driver found' });
-      }
   
       driver.firstName = firstName || driver.firstName;
       driver.lastName = lastName || driver.lastName;
@@ -195,6 +194,7 @@ const updateDriver = asyncHandler(async (req, res) => {
         password_confirmation: updatedDriver.password_confirmation
       });
     } catch (error) {
+      console.log(error);
       res.status(500);
       throw new Error('Internal server error');
     }

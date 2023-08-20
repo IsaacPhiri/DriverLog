@@ -7,6 +7,7 @@ const requireAdmin = require('../../middleware/requireAdminMiddleware');
 router.get('/', protect, getDrivers);
 router.post('/signup-driver', createDriver);
 router.get('/me', protect, getDriverProfile);
-router.route('/:id').get(protect, getDriver).put(protect, updateDriver).delete(protect, requireAdmin, deleteDriver);
+router.put('/profile', protect, updateDriver); // update driver profile not working
+router.route('/:id').get(protect, getDriver).delete(protect, requireAdmin, deleteDriver);
 
 module.exports = router;
