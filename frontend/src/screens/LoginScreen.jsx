@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import Loader from '../components/Loader';
 
 
 const LoginScreen = () => {
@@ -31,8 +32,11 @@ const LoginScreen = () => {
             const res = await login({ email, password }).unwrap();
             dispatch(setCredentials({ ...res }));
             navigate('/');
+            setEmail('');
+            setPassword('');
+
         } catch (err) {
-            toast.error(err?.data?.detail || err?.error?.message || err.error);
+            toast.error(err?.data?.message || err.error);
         }
     };
 
@@ -60,8 +64,10 @@ const LoginScreen = () => {
                 ></Form.Control>
             </Form.Group>
 
+            {isLoading && <Loader />}
+
             <Button type='submit' variant='primary' className='mt-2'>
-                Sign In
+                {isLoading ? 'Signing In...' : 'Sign In'}
             </Button>
 
             <Row className='py-3'>
