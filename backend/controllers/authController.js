@@ -5,52 +5,33 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const createJWT = require("../utils/auth");
 
-const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-// Description: Controller for authentification
 const signinDriver = asyncHandler(async (req, res) => {
-    let { email, password } = req.body;
-      let errors = [];
-      if (!email) {
-        errors.push({ email: "required" });
-      }
-      if (!emailRegexp.test(email)) {
-        errors.push({ email: "invalid email" });
-      }
-      if (!password) {
-        errors.push({ passowrd: "required" });
-      }
-      if (errors.length > 0) {
-        return res.status(422).json({ errors: errors });
+  const { email, password } = req.body;
+  try {
+      const driver = await Driver.findOne({ email: email });
+
+      if (!driver) {
+          throw new Error('Driver not found');
       }
 
-     Driver.findOne({ email: email })
-     .then(driver => {
-       if (!driver) {
-         return res.status(404).json({
-           errors: [{ driver: "not found" }],
-         });
-       } else {
-          bcrypt.compare(password, driver.password).then(isMatch => {
-             if (!isMatch) {
-              return res.status(400).json({ errors: [{ password: "incorrect" }] });
-             }
+      const isMatch = await bcrypt.compare(password, driver.password);
 
-       createJWT(res, driver.email, driver._id, driver.role);
-       return res.status(200).json({
-        _id: driver._id,
-        email: driver.email,
-        role: driver.role,
-       });
-        }).catch(err => {
-          res.status(500);
-          throw new Error('Internal server error');
-        });
+      if (!isMatch) {
+          throw new Error('Incorrect email or password');
       }
-    }).catch(err => {
-      res.status(500);
-      throw(new Error('Internal server error'));
-    });
+
+      createJWT(res, driver.email, driver._id, driver.role);
+
+      return res.status(200).json({
+          _id: driver._id,
+          firstName: driver.firstName,
+          lastName: driver.lastName,
+          email: driver.email,
+          role: driver.role,
+      });
+  } catch (err) {
+      throw new Error(err.message);
+  }
 });
 
 // Logout driver
