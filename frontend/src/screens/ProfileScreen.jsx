@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -66,7 +66,8 @@ const ProfileScreen = () => {
                 password
             }).unwrap();
             dispatch(setCredentials({...res}));
-            toast.success('Profile Updated');
+            toast.success('Profile Updated Successfully');
+            navigate('/');
         } catch (err) {
             toast.error(err?.data?.message || err.error);
         }
@@ -181,7 +182,7 @@ const ProfileScreen = () => {
             {isLoading && <Loader />}
 
             <Button type='submit' variant='primary' className='mt-2'>
-                Update
+                {isLoading ? 'Updating...' : 'Update'}
             </Button>
 
         </Form>

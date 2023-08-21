@@ -166,7 +166,7 @@ const RegisterScreen = () => {
             {isLoading && <Loader />}
 
             <Button type='submit' variant='primary' className='mt-2'>
-                Register
+                {isLoading ? 'Registering...' : 'Register'}
             </Button>
 
             <Row className='py-3'>

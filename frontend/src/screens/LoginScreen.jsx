@@ -31,6 +31,7 @@ const LoginScreen = () => {
         try {
             const res = await login({ email, password }).unwrap();
             dispatch(setCredentials({ ...res }));
+            toast.success('Logged in successfully');
             navigate('/');
             setEmail('');
             setPassword('');
@@ -42,7 +43,7 @@ const LoginScreen = () => {
 
   return (
     <FormContainer>
-        <h1>Sign In</h1>
+        <h1>Login</h1>
         <Form onSubmit={submitHandler}>
             <Form.Group className='my-2' controlId='email'>
                 <Form.Label>Email Address</Form.Label>

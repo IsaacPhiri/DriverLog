@@ -1,10 +1,11 @@
-import {Navbar, Nav, Container, NavDropdown, Badge} from 'react-bootstrap';
-import {FaSignInAlt, FaSignOutAlt} from 'react-icons/fa';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Header = () => {
     const { userInfo } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ const Header = () => {
         try {
             await logoutApiCall().unwrap();
             dispatch(logout());
+            toast.success('Logged out successfully');
             navigate('/login');
         } catch (err) {
             console.log(err);
