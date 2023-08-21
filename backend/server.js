@@ -39,6 +39,17 @@ app.use('/api/trips', tripsRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 
+if (process.env.NODE_ENV === 'production') {
+	const __dirname = path.resolve();
+	app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+	app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html')));
+} else {
+	app.get('/', (req, res) => {
+		res.send('API is running...');
+	});
+}
+
 const port = process.env.PORT || 5000;
 
 // Error handling middleware
