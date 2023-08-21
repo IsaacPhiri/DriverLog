@@ -149,34 +149,23 @@ const createDriver = asyncHandler(async (req, res) => {
 });    
 
 const updateDriver = asyncHandler(async (req, res) => {
-    const driver = await Driver.findById(req.params.id);
-    console.log(driver); // still working here
-    if (!driver) {
-      res.status(404);
-      throw new Error('Driver not found');
-    }
-    try {
-      const driver = { firstName,
-        lastName,
-        licenseNumber,
-        nationalId,
-        contactNumber,
-        email,
-        homeAddress,
-        licenseExpiryDate,
-        password,
-        password_confirmation } = req.body;
-  
-      driver.firstName = firstName || driver.firstName;
-      driver.lastName = lastName || driver.lastName;
-      driver.licenseNumber = licenseNumber || driver.licenseNumber;
-      driver.nationalId = nationalId || driver.nationalId;
-      driver.contactNumber = contactNumber || driver.contactNumber;
-      driver.email = email || driver.email;
-      driver.homeAddress = homeAddress || driver.homeAddress;
-      driver.licenseExpiryDate = licenseExpiryDate || driver.licenseExpiryDate;
-      driver.password = password || driver.password;
-      driver.password_confirmation = password_confirmation || driver.password_confirmation;
+    const driver = await Driver.findById(req.user._id);
+    
+    if (driver) {
+      driver.firstName = req.body.firstName || driver.firstName;
+      driver.lastName = req.body.lastName || driver.lastName;
+      driver.licenseNumber = req.body.licenseNumber || driver.licenseNumber;
+      driver.nationalId = req.body.nationalId || driver.nationalId;
+      driver.contactNumber = req.body.contactNumber || driver.contactNumber;
+      driver.email = req.body.email || driver.email;
+      driver.homeAddress = req.body.homeAddress || driver.homeAddress;
+      driver.licenseExpiryDate = req.body.licenseExpiryDate || driver.licenseExpiryDate;
+
+      if (req.body.password) {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(req.body.password, salt);
+        driver.password = hash;
+      }
   
       const updatedDriver = await driver.save();
   
@@ -193,25 +182,26 @@ const updateDriver = asyncHandler(async (req, res) => {
         password: updatedDriver.password,
         password_confirmation: updatedDriver.password_confirmation
       });
-    } catch (error) {
-      console.log(error);
-      res.status(500);
-      throw new Error('Internal server error');
+    } else {
+      res.status(404);
+      throw new Error('Driver not found');
     }
   });
 
 const deleteDriver = asyncHandler(async (req, res) => {
-    await Driver.findByIdAndRemove(req.params.id)
-        .then(driver => {
-            if (!driver) {
-                return res.status(404).json({ error: 'Driver not found' });
-            }
-            res.json({ success: true, result: driver, message: "Driver deleted successfully" });
-        })
-        .catch(err => {
-            return res.status(500).json({ error: err.message });
-        });
-});
+    try {
+        const driver = await Driver.findById(req.params.id);
+        if (!driver) {
+            return res.status(404).json({ error: 'Driver not found' });
+        }
+        await driver.remove();
+        res.json({ message: 'Driver removed' });
+    } catch (error) {
+        res.status(500);
+        throw new Error('Internal server error');
+    }
+}
+);
 
 module.exports = {
     getDriverProfile,
