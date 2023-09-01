@@ -31,7 +31,9 @@ const Header = () => {
             <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
-                    <Navbar.Brand>DriverLog</Navbar.Brand>
+                        <Navbar.Brand>
+                            DriverLog
+                        </Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -49,11 +51,13 @@ const Header = () => {
                             <>
                                 <LinkContainer to='/login'>
                                     <Nav.Link>
-                                        <FaSignInAlt /> Sign In</Nav.Link>
+                                        <FaSignInAlt /> Sign In
+                                    </Nav.Link>
                                     </LinkContainer>
                                     <LinkContainer to='/register'>
                                     <Nav.Link>
-                                        <FaSignOutAlt /> Sign Up</Nav.Link>
+                                        <FaSignOutAlt />Sign Up
+                                    </Nav.Link>
                                 </LinkContainer>
                             </>) }
                         </Nav>

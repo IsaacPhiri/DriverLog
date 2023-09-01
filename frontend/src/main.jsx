@@ -15,6 +15,7 @@ import store from './store.js'
 import { Provider } from 'react-redux'
 import ProfileScreen from './screens/ProfileScreen.jsx'
 import PrivateRoute from './components/PrivateRoute'
+import DashboardScreen from './screens/DashboardScreen.jsx'
 
 
 const router = createBrowserRouter(
@@ -26,10 +27,12 @@ const router = createBrowserRouter(
       {/*Private routes*/}
       <Route path='' element={<PrivateRoute />}>
         <Route path='/profile' element={<ProfileScreen />}/>
+        <Route path='/dashboard' element={<DashboardScreen />}/>
       </Route>
     </Route>
   )
 )
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -37,4 +40,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <RouterProvider router={router}/>
     </React.StrictMode>
   </Provider>
-);
+  );
