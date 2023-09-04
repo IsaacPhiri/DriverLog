@@ -1,6 +1,7 @@
 const Admin = require('../models/Admin');
 const bcrypt = require('bcrypt');
 const asyncHandler = require('express-async-handler');
+const createJWT = require("../utils/auth");
 
 // Description: Controller for admin user
 const getAdmin = asyncHandler(async (req, res) => {
@@ -40,9 +41,12 @@ const getAdmins = asyncHandler(async (req, res) => {
 });
 
 const createAdmin = asyncHandler(async (req, res) => {
-  let { email, password } = req.body;
+  let { companyName, companyEmail, password } = req.body;
   let errors = [];
-  if (!email) {
+  if (!companyName) {
+    errors.push({ companyName: "required" });
+  }
+  if (!companyEmail) {
     errors.push({ email: "required" });
   }
   if (!password) {
@@ -60,10 +64,12 @@ const createAdmin = asyncHandler(async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
       const admin = new Admin({
-        email,
+        companyName: companyName,
+        companyEmail: companyEmail,
         password: hash
     });
     const createdAdmin = await admin.save();
+    createJWT(res, admin.companyEmail, admin._id, admin.role);
     res.status(201).json(createdAdmin);
   }
 } catch (error) {
@@ -75,7 +81,7 @@ const createAdmin = asyncHandler(async (req, res) => {
 const updateAdmin = asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
-      const { email, password } = req.body;
+      const { companyName, companyEmail, password, companyRegNo, companyAddress } = req.body;
   
       // Find the admin user by ID
       const admin = await Admin.findById(id);
@@ -84,7 +90,10 @@ const updateAdmin = asyncHandler(async (req, res) => {
       }
   
       // Update the admin user properties
-      admin.email = email;
+      admin.companyName = companyName || admin.companyName;
+      admin.companyEmail = companyEmail || admin.companyEmail;
+      admin.companyRegNo = companyRegNo || admin.companyRegNo;
+      admin.companyAddress = companyAddress || admin.companyAddress;
       admin.password = await bcrypt.hash(password, 10);
   
       // Save the updated admin user to the database
