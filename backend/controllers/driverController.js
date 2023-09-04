@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const Driver = require('../models/Driver');
 const asyncHandler = require('express-async-handler');
-const createJWT = require("../utils/auth");
 
 const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
@@ -128,7 +127,6 @@ const createDriver = asyncHandler(async (req, res) => {
             password: hash
             });
             await driver.save();
-            createJWT(res, driver.email, driver._id, driver.role);
             res.status(200).json({
                 _id: driver._id,
                 firstName: driver.firstName,

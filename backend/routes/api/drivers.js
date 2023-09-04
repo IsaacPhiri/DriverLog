@@ -4,10 +4,10 @@ const { getDrivers, getDriver, createDriver, updateDriver, deleteDriver, getDriv
 const protect = require('../../middleware/authMiddleware');
 const requireAdmin = require('../../middleware/requireAdminMiddleware');
 
-router.get('/', protect, getDrivers);
-router.post('/signup-driver', createDriver);
+router.get('/', protect, requireAdmin, getDrivers);
+router.post('/signup-driver', protect, requireAdmin, createDriver);
 router.get('/me', protect, getDriverProfile);
-router.put('/profile', protect, updateDriver); // update driver profile not working
+router.put('/profile', protect, updateDriver);
 router.route('/:id').get(protect, getDriver).delete(protect, requireAdmin, deleteDriver);
 
 module.exports = router;
