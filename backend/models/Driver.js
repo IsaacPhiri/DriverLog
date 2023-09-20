@@ -18,9 +18,9 @@ const DriverSchema = new mongoose.Schema({
 		required: true
 	},
 	contactNumber: {
-		type: Number,
-		required: true
-	},	
+        type: String,
+        required: true
+    },	
 	email: {
 		type: String,
 		required: false,
@@ -47,8 +47,14 @@ const DriverSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-}, { timestamps: true
-});
+	admin: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Admin',
+		required: false,
+	},
+},
+{ timestamps: true }
+);
 
 const Driver = mongoose.model('Driver', DriverSchema);
 module.exports = Driver;
